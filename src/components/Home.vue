@@ -25,12 +25,19 @@
                 <v-row align="center">
                   <v-col cols="12" sm="6">
                     <v-select
+                      color="secondary"
                       v-model="selectedAlcohol"
-                      :hint="`${selectedAlcohol.name}, ${selectedAlcohol.abv}%, ${selectedAlcohol.volume}L`"
+                      :hint="`
+                      ${selectedAlcohol ? selectedAlcohol.name : ''}, 
+                      ${selectedAlcohol ? selectedAlcohol.abv : ''}%, 
+                      ${selectedAlcohol ? selectedAlcohol.volume : ''}L`"
                       :items="alcoholsList"
                       item-text="name"
                       label="Brevage"
-                      @change="updateCurrentAlcohol(selectedAlcohol.id)"
+                      @change="
+                        updateCurrentAlcohol(selectedAlcohol.id);
+                        calculateResult();
+                      "
                       persistent-hint
                       return-object
                       single-line
@@ -38,32 +45,76 @@
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-text-field
+                      color="secondary"
                       v-model="volume"
                       hint="Volume total en Litre"
-                      label="Volume"
+                      label="Volume (L)"
+                      @change="calculateResult"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-text-field
+                      color="secondary"
                       v-model="weight"
                       hint="Ton poids en Kg."
-                      label="Poids"
+                      label="Poids (kg)"
+                      @change="calculateResult"
                     ></v-text-field>
                   </v-col>
                   <v-col cols="12" sm="6">
-                    <v-btn block color="secondary" @click="calculateResult"> Calculer </v-btn>
+                    <v-row>
+                      <v-subheader> Genre : </v-subheader>
+                      <v-switch
+                        class="mt-2"
+                        color="secondary"
+                        v-model="sex"
+                        @change="calculateResult"
+                        :label="`${sex ? 'Homme' : 'Femme'}`"
+                      ></v-switch>
+                    </v-row>
                   </v-col>
                 </v-row>
                 <v-row>
-                  <v-col cols="12" sm="6"> afficher le taux etc ici. </v-col>
+                  <v-col cols="12" sm="6" class="text-start">
+                    <v-list-item class="pl-0 text-h6" two-line>
+                      <v-list-item-content>
+                        <v-list-item-title
+                          >Taux d’alcoolémie :
+                          <b> {{ alcoholLevel }}g/L </b>
+                          <v-list-item-subtitle
+                            >Seuil légale : 0.5g/L</v-list-item-subtitle
+                          >
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item class="pl-0 text-h6">
+                      <v-list-item-content>
+                        <v-list-item-title
+                          >Gramme d’alcools ingérés :
+                          <b> {{ alcoholAbsorbed }}g </b>
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                    <v-list-item class="pl-0 text-h6">
+                      <v-list-item-content>
+                        <v-list-item-title
+                          >Temps éstimé pour atteindre le seuil légale :
+                          <b> {{ estimatedTime }}min </b>
+                        </v-list-item-title>
+                      </v-list-item-content>
+                    </v-list-item>
+                  </v-col>
                   <v-col cols="12" sm="6">
+                    <v-col cols="12"
+                      ><h2>Taux d'alcoolémie / Limite Légale</h2></v-col
+                    >
                     <v-progress-circular
                       :rotate="360"
                       :size="200"
                       :width="15"
                       :value="circleValue"
-                      color="teal"
-                      ><h1>{{ circleValue }}</h1>
+                      color="secondary"
+                      ><h1>{{ circleValue }}%</h1>
                     </v-progress-circular>
                   </v-col>
                 </v-row>
@@ -71,19 +122,6 @@
             </v-form>
           </v-card-text>
         </v-card>
-      </v-col>
-      <v-col class="mb-4 my-3">
-        <h1 class="display-2 font-weight-bold mb-3">Nos brevages</h1>
-        <v-col
-          v-for="(item, i) in alcoholsList"
-          :key="i"
-          class="subheading mx-3"
-          target="_blank"
-        >
-          <v-row justify="center">
-            <h3>{{ item.name }}</h3>
-          </v-row>
-        </v-col>
       </v-col>
     </v-row>
   </v-container>
@@ -93,22 +131,21 @@
 </style>
 
 <script>
-import Alcohol from "../store/alcohol";
-
 export default {
   name: "Home",
   data() {
     return {
-      selectedAlcohol: new Alcohol("placeolder", 0, 0),
-      volume: 0,
+      selectedAlcohol: null,
       weight: 70,
-      circleValue: 0,
+      sex: true,
+      volume: 0,
       shouldDispayResults: false,
     };
   },
   mounted() {
     this.selectedAlcohol = this.$store.getters.CURRENT_ALCOHOL;
     this.volume = this.selectedAlcohol.volume;
+    this.calculateResult();
   },
   beforeDestroy() {
     clearInterval(this.interval);
@@ -120,14 +157,47 @@ export default {
     currentAlcohol() {
       return this.$store.getters.CURRENT_ALCOHOL;
     },
+    stats() {
+      return this.$store.getters.STATS;
+    },
+    alcoholLevel() {
+      if (!this.stats) return 0;
+      return this.stats.alcoholLevel.toFixed(4);
+    },
+    alcoholAbsorbed() {
+      if (!this.stats) return 0;
+      return this.stats.alcoholAbsorbed;
+    },
+    circleValue() {
+      if (!this.stats) return 0;
+      return parseInt((this.stats.alcoholLevel / 0.5) * 100);
+    },
+    estimatedTime() {
+      if (!this.stats) return "0";
+      let minutes = this.stats.estimatedTime;
+      const hours = parseInt(minutes / 60);
+      minutes %= 60;
+      return hours + "h" + minutes;
+    },
   },
   methods: {
     updateCurrentAlcohol(id) {
       this.$store.dispatch("UPDATE_CURRENT_ALCOHOL", id);
-      this;
+      this.volume = this.currentAlcohol.volume;
+    },
+    checkFields() {
+      return true;
     },
     calculateResult() {
-      this.circleValue = 75;
+      if (this.checkFields()) {
+        this.$store.dispatch("UPDATE_STATS", {
+          volume: this.volume,
+          weight: this.weight,
+          sex: this.sex,
+        });
+      } else {
+        // TODO
+      }
     },
   },
 };

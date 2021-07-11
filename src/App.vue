@@ -26,10 +26,13 @@
   </v-app>
 </template>
 
-<style>
+
+<style scoped>
+
 #app {
     background-color: var(--v-background-base);
 }
+
 </style>
 
 <script>
