@@ -1,5 +1,6 @@
 import Alcohol from "./alcohol"
 
+// name, abv, volume.
 export const alcohols = [
   new Alcohol('86 Original', 8.6, 0.5),
   new Alcohol('86 Extreme', 10.5, 0.5),
