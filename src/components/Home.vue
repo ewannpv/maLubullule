@@ -23,7 +23,7 @@
             <v-form>
               <v-container grid-list-md>
                 <v-row align="center">
-                  <v-col cols="6" sm="3">
+                  <v-col cols="12" lg="3">
                     <v-select
                       color="secondary"
                       v-model="selectedAlcohol"
@@ -43,7 +43,7 @@
                       single-line
                     ></v-select>
                   </v-col>
-                  <v-col cols="6" sm="3">
+                  <v-col cols="12" lg="3">
                     <v-select
                       color="secondary"
                       v-model="category"
