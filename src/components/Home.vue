@@ -5,7 +5,7 @@
         <v-img
           :src="require('../assets/86_background.jpeg')"
           contain
-          height="600"
+          height="250"
         />
         <v-card class="mx-auto" color="primary">
           <v-list-item three-line>
@@ -20,17 +20,58 @@
             </v-list-item-content>
           </v-list-item>
           <v-card-text>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla
-            blanditiis placeat aliquid rerum ullam fugiat animi impedit sunt
-            ipsa quas aperiam quisquam consequuntur itaque voluptatibus
-            cupiditate minima dolor, maiores necessitatibus!
+            <v-form>
+              <v-container grid-list-md>
+                <v-row align="center">
+                  <v-col cols="12" sm="6">
+                    <v-select
+                      v-model="selectedAlcohol"
+                      :hint="`${selectedAlcohol.name}, ${selectedAlcohol.abv}%, ${selectedAlcohol.volume}L`"
+                      :items="alcoholsList"
+                      item-text="name"
+                      label="Brevage"
+                      @change="updateCurrentAlcohol(selectedAlcohol.id)"
+                      persistent-hint
+                      return-object
+                      single-line
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      v-model="volume"
+                      hint="Volume total en Litre"
+                      label="Volume"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-text-field
+                      v-model="weight"
+                      hint="Ton poids en Kg."
+                      label="Poids"
+                    ></v-text-field>
+                  </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-btn block color="secondary" @click="calculateResult"> Calculer </v-btn>
+                  </v-col>
+                </v-row>
+                <v-row>
+                  <v-col cols="12" sm="6"> afficher le taux etc ici. </v-col>
+                  <v-col cols="12" sm="6">
+                    <v-progress-circular
+                      :rotate="360"
+                      :size="200"
+                      :width="15"
+                      :value="circleValue"
+                      color="teal"
+                      ><h1>{{ circleValue }}</h1>
+                    </v-progress-circular>
+                  </v-col>
+                </v-row>
+              </v-container>
+            </v-form>
           </v-card-text>
-          <v-card-actions>
-            <v-btn text> Calculer </v-btn>
-          </v-card-actions>
         </v-card>
       </v-col>
-
       <v-col class="mb-4 my-3">
         <h1 class="display-2 font-weight-bold mb-3">Nos brevages</h1>
         <v-col
@@ -52,11 +93,41 @@
 </style>
 
 <script>
+import Alcohol from "../store/alcohol";
+
 export default {
   name: "Home",
+  data() {
+    return {
+      selectedAlcohol: new Alcohol("placeolder", 0, 0),
+      volume: 0,
+      weight: 70,
+      circleValue: 0,
+      shouldDispayResults: false,
+    };
+  },
+  mounted() {
+    this.selectedAlcohol = this.$store.getters.CURRENT_ALCOHOL;
+    this.volume = this.selectedAlcohol.volume;
+  },
+  beforeDestroy() {
+    clearInterval(this.interval);
+  },
   computed: {
     alcoholsList() {
       return this.$store.getters.ALCOHOLS;
+    },
+    currentAlcohol() {
+      return this.$store.getters.CURRENT_ALCOHOL;
+    },
+  },
+  methods: {
+    updateCurrentAlcohol(id) {
+      this.$store.dispatch("UPDATE_CURRENT_ALCOHOL", id);
+      this;
+    },
+    calculateResult() {
+      this.circleValue = 75;
     },
   },
 };

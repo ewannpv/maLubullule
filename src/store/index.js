@@ -21,23 +21,23 @@ export const store = new Vuex.Store({
     }
   },
   mutations: {
-    SET_CURRENT_ALCOHOL : (state, index) => {
-      state.currentAlcohol = state.alcohols[index]
+    SET_CURRENT_ALCOHOL : (state, id) => {
+      state.currentAlcohol = state.alcohols.filter(item => item.id == id);
       state.volume = state.currentAlcohol.volume
       state.amount = 1
     },
-    ADD_ALCOHOL : (state, name, strength, volume) => {
-      const alcohol = new Alcohol(name,strength,volume)
+    ADD_ALCOHOL : (state, name, abv, volume) => {
+      const alcohol = new Alcohol(name,abv,volume)
       if (alcohol)
         state.currentAlcohol.push(alcohol)
     },
   },
   actions : {
-    SAVE_ALCOHOL : (context, name, strength, volume) => {
-      context.commit('ADD_ALCOHOL', name, strength, volume)
+    SAVE_ALCOHOL : (context, name, abv, volume) => {
+      context.commit('ADD_ALCOHOL', name, abv, volume)
     },
-    UPDATE_CURRENT_ALCOHOL : (context, index) => {
-      context.commit('SET_CURRENT_ALCOHOL', index)
+    UPDATE_CURRENT_ALCOHOL : (context, id) => {
+      context.commit('SET_CURRENT_ALCOHOL', id)
     },
   }  
 })
