@@ -23,7 +23,7 @@
             <v-form>
               <v-container grid-list-md>
                 <v-row align="center">
-                  <v-col cols="12" sm="6">
+                  <v-col cols="6" sm="3">
                     <v-select
                       color="secondary"
                       v-model="selectedAlcohol"
@@ -31,7 +31,7 @@
                       ${selectedAlcohol ? selectedAlcohol.name : ''}, 
                       ${selectedAlcohol ? selectedAlcohol.abv : ''}%, 
                       ${selectedAlcohol ? selectedAlcohol.volume : ''}L`"
-                      :items="alcoholsList"
+                      :items="displayedAlcohols"
                       item-text="name"
                       label="Brevage"
                       @change="
@@ -40,6 +40,19 @@
                       "
                       persistent-hint
                       return-object
+                      single-line
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="6" sm="3">
+                    <v-select
+                      color="secondary"
+                      v-model="category"
+                      :items="categories"
+                      item-text="displayName"
+                      label="Catégorie"
+                      persistent-hint
+                      return-object
+                      @change="updateDisplayedAlcohols(category)"
                       single-line
                     ></v-select>
                   </v-col>
@@ -140,10 +153,15 @@ export default {
       sex: true,
       volume: 0,
       shouldDispayResults: false,
+      displayedAlcohols: [],
+      category: [],
     };
   },
   mounted() {
     this.selectedAlcohol = this.$store.getters.CURRENT_ALCOHOL;
+    this.category = this.$store.getters.CATEGORIES[0];
+    console.log(this.category);
+    this.displayedAlcohols = this.$store.getters.ALCOHOLS;
     this.volume = this.selectedAlcohol.volume;
     this.calculateResult();
   },
@@ -156,6 +174,9 @@ export default {
     },
     currentAlcohol() {
       return this.$store.getters.CURRENT_ALCOHOL;
+    },
+    categories() {
+      return this.$store.getters.CATEGORIES;
     },
     stats() {
       return this.$store.getters.STATS;
@@ -185,7 +206,20 @@ export default {
       this.$store.dispatch("UPDATE_CURRENT_ALCOHOL", id);
       this.volume = this.currentAlcohol.volume;
     },
+    updateDisplayedAlcohols(category) {
+      this.displayedAlcohols = this.alcoholsList.filter((alcohol) => {
+        return alcohol.categories.filter((item) => item === category.name)
+          .length;
+      });
+      if (this.displayedAlcohols.length > 0) {
+        this.selectedAlcohol = this.displayedAlcohols[0];
+        this.updateCurrentAlcohol(this.selectedAlcohol.id);
+      }
+      this.calculateResult()
+    },
+
     checkFields() {
+      // TODO.
       return true;
     },
     calculateResult() {
@@ -196,7 +230,7 @@ export default {
           sex: this.sex,
         });
       } else {
-        // TODO
+        // TODO.
       }
     },
   },

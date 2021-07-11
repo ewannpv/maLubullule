@@ -1,8 +1,9 @@
 export default class Alcohol {
-  constructor(name, abv, volume) {
+  constructor(name, abv, volume,categories) {
     this.name = name;
     this.abv = abv
     this.volume = volume
+    this.categories = categories
     this.id = randomId()
   }
 }

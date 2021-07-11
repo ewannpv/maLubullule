@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import Alcohol from './alcohol';
-import { alcohols } from './constants'
+import { alcohols, categories } from './constants'
 import Stats from './stats';
 
 Vue.use(Vuex);
@@ -11,6 +11,7 @@ export const store = new Vuex.Store({
     currentAlcohol: alcohols[0],
     volume: alcohols[0].volume,
     alcohols: alcohols,
+    categories: categories,
     stats: null
   },
   getters: {
@@ -19,6 +20,9 @@ export const store = new Vuex.Store({
     },
     ALCOHOLS: state => {
       return state.alcohols
+    },
+    CATEGORIES: state => {
+      return state.categories
     },
     STATS: state => {
       return state.stats
