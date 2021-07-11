@@ -1,28 +1,49 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+        <h1>MaLubullule</h1>
+      </div>
+
+      <v-spacer></v-spacer>
+
+      <v-btn
+        href="#"
+        text
+      >
+        <span class="mr-2">Taux</span>
+        <v-icon>mdi-call-made</v-icon>
+      </v-btn>
+    </v-app-bar>
+
+    <v-main>
+      <Home/>
+    </v-main>
+  </v-app>
 </template>
-
-<script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
-</script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+    background-color: var(--v-background-base);
 }
 </style>
+
+<script>
+import Home from './components/Home';
+
+export default {
+  name: 'App',
+
+  components: {
+    Home,
+  },
+
+  data: () => ({
+    //
+  }),
+};
+</script>
