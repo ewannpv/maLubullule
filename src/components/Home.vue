@@ -98,7 +98,7 @@
                     <v-list-item class="pl-0 text-h6">
                       <v-list-item-content>
                         <v-list-item-title
-                          >Temps estimé pour atteindre le seuil légale :
+                          >Temps estimé pour atteindre le seuil légal :
                           <b> {{ estimatedTime }}min </b>
                         </v-list-item-title>
                       </v-list-item-content>
