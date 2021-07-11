@@ -1,19 +1,19 @@
 <template>
   <v-container class="main">
     <v-row class="text-center">
-      <v-col cols="12">
+      <v-col cols="12" class="mt-0">
         <v-img
-          :src="require('../assets/86_background.jpeg')"
+          :src="require('../assets/86_background.png')"
           contain
-          height="250"
+          height="200"
         />
         <v-card class="mx-auto" color="primary">
           <v-list-item three-line>
             <v-list-item-content>
-              <div class="text-overline mb-4">
+              <div class="text-overline mb-2">
                 Peter sa biere c'est bien, finir sa lubullule c'est mieux.
               </div>
-              <v-list-item-title class="text-h1 mb-1">
+              <v-list-item-title class="text-h3">
                 MaLubullule
               </v-list-item-title>
               <v-list-item-subtitle>100% original.</v-list-item-subtitle>
@@ -98,7 +98,7 @@
                     <v-list-item class="pl-0 text-h6">
                       <v-list-item-content>
                         <v-list-item-title
-                          >Temps éstimé pour atteindre le seuil légale :
+                          >Temps estimé pour atteindre le seuil légale :
                           <b> {{ estimatedTime }}min </b>
                         </v-list-item-title>
                       </v-list-item-content>
