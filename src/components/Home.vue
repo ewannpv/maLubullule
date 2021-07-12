@@ -14,9 +14,9 @@
                   MaLubullule
                 </v-list-item-title>
                 <v-list-item-subtitle>100% original.</v-list-item-subtitle>
-                <HomeForm />
-                <HomeStats />
               </div>
+              <HomeForm />
+              <HomeStats />
             </v-list-item-content>
           </v-list-item>
           <v-card-text> </v-card-text>
