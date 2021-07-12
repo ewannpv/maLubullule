@@ -192,7 +192,7 @@ export default {
     },
     alcoholAbsorbed() {
       if (!this.stats) return 0;
-      return this.stats.alcoholAbsorbed;
+      return this.stats.alcoholAbsorbed.toFixed(2);
     },
     circleValue() {
       if (!this.stats) return 0;
