@@ -2,11 +2,7 @@
   <v-container class="main">
     <v-row class="text-center">
       <v-col cols="12" class="mt-0">
-        <v-img
-          :src="require('../assets/86_background.png')"
-          contain
-          height="200"
-        />
+        <v-img :src="require('../assets/86_background.png')" contain height="200" />
         <v-card class="mx-auto" color="secondary">
           <v-list-item three-line>
             <v-list-item-content>
@@ -23,8 +19,7 @@
               </div>
             </v-list-item-content>
           </v-list-item>
-          <v-card-text>
-          </v-card-text>
+          <v-card-text> </v-card-text>
         </v-card>
       </v-col>
     </v-row>

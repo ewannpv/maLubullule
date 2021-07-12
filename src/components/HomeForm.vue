@@ -1,70 +1,69 @@
 <template>
   <v-form>
-  <v-container grid-list-md>
-    <v-row align="center">
-      <v-col cols="12" lg="3">
-        <v-select
-          class="custom-select"
-          v-model="selectedAlcohol"
-          :hint="`
+    <v-container grid-list-md>
+      <v-row align="center">
+        <v-col cols="12" lg="3">
+          <v-select
+            class="custom-select"
+            v-model="selectedAlcohol"
+            :hint="
+              `
           ${selectedAlcohol ? selectedAlcohol.name : ''},
           ${selectedAlcohol ? selectedAlcohol.abv : ''}%,
-          ${selectedAlcohol ? selectedAlcohol.volume : ''}L`"
-          :items="displayedAlcohols"
-          item-text="name"
-          label="Brevage"
-          @change="
-            updateCurrentAlcohol(selectedAlcohol.id);
-            calculateResult();
-          "
-          persistent-hint
-          return-object
-          single-line
-        ></v-select>
-      </v-col>
-      <v-col cols="12" lg="3">
-        <v-select
-          class="custom-select"
-          v-model="category"
-          :items="categories"
-          item-text="displayName"
-          label="Catégorie"
-          persistent-hint
-          return-object
-          @change="updateDisplayedAlcohols(category)"
-          single-line
-        ></v-select>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <v-text-field
-          v-model="volume"
-          hint="Volume total en Litre"
-          label="Volume (L)"
-          @change="calculateResult"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <v-text-field
-          v-model="weight"
-          hint="Ton poids en Kg."
-          label="Poids (kg)"
-          @change="calculateResult"
-        ></v-text-field>
-      </v-col>
-      <v-col cols="12" sm="6">
-        <v-row>
-          <v-subheader> Genre : </v-subheader>
-          <v-switch
-            class="mt-2"
-            v-model="sex"
+          ${selectedAlcohol ? selectedAlcohol.volume : ''}L`
+            "
+            :items="displayedAlcohols"
+            item-text="name"
+            label="Brevage"
+            @change="updateCurrentAlcohol(selectedAlcohol.id)"
+            persistent-hint
+            return-object
+            single-line
+          ></v-select>
+        </v-col>
+        <v-col cols="12" lg="3">
+          <v-select
+            class="custom-select"
+            v-model="category"
+            :items="categories"
+            item-text="displayName"
+            label="Catégorie"
+            persistent-hint
+            return-object
+            @change="updateDisplayedAlcohols(category)"
+            single-line
+          ></v-select>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="volume"
+            hint="Volume total en Litre"
+            label="Volume (L)"
             @change="calculateResult"
-            :label="`${sex ? 'Homme' : 'Femme'}`"
-          ></v-switch>
-        </v-row>
-      </v-col>
-    </v-row>
-  </v-container>
-</v-form>
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-text-field
+            v-model="weight"
+            hint="Ton poids en Kg."
+            label="Poids (kg)"
+            @change="calculateResult"
+          ></v-text-field>
+        </v-col>
+        <v-col cols="12" sm="6">
+          <v-row>
+            <v-subheader> Genre : </v-subheader>
+            <v-switch
+              class="mt-2"
+              v-model="sex"
+              @change="calculateResult"
+              :label="`${sex ? 'Homme' : 'Femme'}`"
+            ></v-switch>
+          </v-row>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-form>
 </template>
 
 <script>
@@ -85,7 +84,6 @@ export default {
     this.updateDisplayedAlcohols(this.category);
     this.calculateResult();
   },
-  name: 'HomeForm',
   computed: {
     alcoholsList() {
       return this.$store.getters.ALCOHOLS;
@@ -101,6 +99,7 @@ export default {
     updateCurrentAlcohol(id) {
       this.$store.dispatch('UPDATE_CURRENT_ALCOHOL', id);
       this.volume = this.currentAlcohol.volume;
+      this.calculateResult();
     },
     updateDisplayedAlcohols(category) {
       this.displayedAlcohols = this.alcoholsList.filter(
@@ -133,6 +132,4 @@ export default {
 };
 </script>
 
-<style>
-
-</style>
+<style></style>
