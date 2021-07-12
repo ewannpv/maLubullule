@@ -1,4 +1,5 @@
 <template>
+<v-container grid-list-xs>
   <v-row>
     <v-col cols="12" sm="6" class="text-start">
       <v-list-item class="pl-0 text-h6" two-line>
@@ -39,6 +40,7 @@
       </v-progress-circular>
     </v-col>
   </v-row>
+</v-container>
 </template>
 
 <script>
