@@ -7,7 +7,7 @@
           contain
           height="200"
         />
-        <v-card class="mx-auto" color="primary">
+        <v-card class="mx-auto" color="secondary">
           <v-list-item three-line>
             <v-list-item-content>
               <div class="text-overline mb-2">
@@ -27,6 +27,7 @@
                 <v-row align="center">
                   <v-col cols="12" lg="3">
                     <v-select
+                      class="custom-select"
                       color="secondary"
                       v-model="selectedAlcohol"
                       :hint="`
@@ -47,7 +48,7 @@
                   </v-col>
                   <v-col cols="12" lg="3">
                     <v-select
-                      color="secondary"
+                      class="custom-select"
                       v-model="category"
                       :items="categories"
                       item-text="displayName"
@@ -60,7 +61,6 @@
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-text-field
-                      color="secondary"
                       v-model="volume"
                       hint="Volume total en Litre"
                       label="Volume (L)"
@@ -69,7 +69,6 @@
                   </v-col>
                   <v-col cols="12" sm="6">
                     <v-text-field
-                      color="secondary"
                       v-model="weight"
                       hint="Ton poids en Kg."
                       label="Poids (kg)"
@@ -81,7 +80,6 @@
                       <v-subheader> Genre : </v-subheader>
                       <v-switch
                         class="mt-2"
-                        color="secondary"
                         v-model="sex"
                         @change="calculateResult"
                         :label="`${sex ? 'Homme' : 'Femme'}`"
@@ -128,7 +126,7 @@
                       :size="200"
                       :width="15"
                       :value="circleValue"
-                      color="secondary"
+                      color="primary"
                       ><h1>{{ circleValue }}%</h1>
                     </v-progress-circular>
                   </v-col>
@@ -145,6 +143,10 @@
 <style scoped>
 .wrapped-item {
   white-space: normal;
+}
+
+.custom-select > .v-list-item__title {
+  color :darkseagreen!important;
 }
 </style>
 
@@ -165,7 +167,7 @@ export default {
   mounted() {
     this.selectedAlcohol = this.currentAlcohol;
     this.category = this.categories[0];
-    this.updateDisplayedAlcohols(this.category)
+    this.updateDisplayedAlcohols(this.category);
     this.calculateResult();
   },
   beforeDestroy() {
