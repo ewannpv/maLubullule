@@ -45,8 +45,7 @@
                       v-model="selectedAlcohol"
                       :hint="`
                       ${selectedAlcohol ? selectedAlcohol.name : ''}, 
-                      ${selectedAlcohol ? selectedAlcohol.abv : ''}%, 
-                      ${selectedAlcohol ? selectedAlcohol.volume : ''}L`"
+                      ${selectedAlcohol ? selectedAlcohol.abv : ''}%`"
                       :items="displayedAlcohols"
                       item-text="name"
                       label="Brevage"
