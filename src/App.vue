@@ -19,7 +19,6 @@
   </v-app>
 </template>
 
-
 <style scoped>
 #app {
   background-color: var(--v-background-base);
@@ -27,10 +26,10 @@
 </style>
 
 <script>
-import Home from "./components/Home";
+import Home from './components/Home.vue';
 
 export default {
-  name: "App",
+  name: 'App',
 
   components: {
     Home,
