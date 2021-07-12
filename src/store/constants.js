@@ -1,5 +1,5 @@
-import Alcohol from './alcohol';
-import Category from './category';
+import Alcohol from "./alcohol"
+import Category from "./category"
 
 // name, displayName.
 export const categories = [
@@ -14,7 +14,7 @@ export const categories = [
   new Category('martini', 'Martini'),
   new Category('gin', 'Gin'),
   new Category('triplesec', 'Triple sec'),
-];
+]
 
 // name, abv, volume, categories.
 export const alcohols = [
@@ -34,4 +34,9 @@ export const alcohols = [
   new Alcohol('Charette', 49, 1, ['rum', 'whiteRum', 'classic']),
   new Alcohol('Cointreau', 40, 0.7, ['triplesec', 'digestif']),
   new Alcohol('Grey Goose', 40, 1.75, ['vodka']),
-];
+  new Alcohol('Heineken', 5, 0.33, ['beer', 'classic']),
+  new Alcohol('Kronenbourg', 4.2, 0.25, ['beer']),
+  new Alcohol('Leffe Blonde', 6.6, 0.33, ['beer', 'classic']),
+  new Alcohol('Leffe Ruby', 5, 0.33, ['beer']),
+  new Alcohol('Grimbergen', 6.7, 0.33, ['beer']),
+]

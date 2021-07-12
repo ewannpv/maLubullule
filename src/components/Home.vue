@@ -28,11 +28,24 @@
                   <v-col cols="12" lg="3">
                     <v-select
                       class="custom-select"
+                      v-model="category"
+                      :items="categories"
+                      item-text="displayName"
+                      label="Catégorie"
+                      persistent-hint
+                      return-object
+                      @change="updateDisplayedAlcohols(category)"
+                      single-line
+                    ></v-select>
+                  </v-col>
+                  <v-col cols="12" lg="3">
+                    <v-select
+                      class="custom-select"
                       color="secondary"
                       v-model="selectedAlcohol"
                       :hint="`
-                      ${selectedAlcohol ? selectedAlcohol.name : ''},
-                      ${selectedAlcohol ? selectedAlcohol.abv : ''}%,
+                      ${selectedAlcohol ? selectedAlcohol.name : ''}, 
+                      ${selectedAlcohol ? selectedAlcohol.abv : ''}%, 
                       ${selectedAlcohol ? selectedAlcohol.volume : ''}L`"
                       :items="displayedAlcohols"
                       item-text="name"
@@ -43,19 +56,6 @@
                       "
                       persistent-hint
                       return-object
-                      single-line
-                    ></v-select>
-                  </v-col>
-                  <v-col cols="12" lg="3">
-                    <v-select
-                      class="custom-select"
-                      v-model="category"
-                      :items="categories"
-                      item-text="displayName"
-                      label="Catégorie"
-                      persistent-hint
-                      return-object
-                      @change="updateDisplayedAlcohols(category)"
                       single-line
                     ></v-select>
                   </v-col>
@@ -152,7 +152,7 @@
 
 <script>
 export default {
-  name: 'Home',
+  name: "Home",
   data() {
     return {
       selectedAlcohol: null,
@@ -166,7 +166,7 @@ export default {
   },
   mounted() {
     this.selectedAlcohol = this.currentAlcohol;
-    [this.category] = this.categories;
+    this.category = this.categories[0];
     this.updateDisplayedAlcohols(this.category);
     this.calculateResult();
   },
@@ -196,27 +196,28 @@ export default {
     },
     circleValue() {
       if (!this.stats) return 0;
-      return parseInt((this.stats.alcoholLevel / 0.5) * 100, 10);
+      return parseInt((this.stats.alcoholLevel / 0.5) * 100);
     },
     estimatedTime() {
-      if (!this.stats) return '0';
+      if (!this.stats) return "0";
       let minutes = this.stats.estimatedTime;
-      const hours = parseInt(minutes / 60, 10);
+      const hours = parseInt(minutes / 60);
       minutes %= 60;
-      return `${hours}h${minutes}`;
+      return hours + "h" + minutes;
     },
   },
   methods: {
     updateCurrentAlcohol(id) {
-      this.$store.dispatch('UPDATE_CURRENT_ALCOHOL', id);
+      this.$store.dispatch("UPDATE_CURRENT_ALCOHOL", id);
       this.volume = this.currentAlcohol.volume;
     },
     updateDisplayedAlcohols(category) {
-      this.displayedAlcohols = this.alcoholsList.filter(
-        (alcohol) => alcohol.categories.filter((item) => item === category.name).length,
-      );
+      this.displayedAlcohols = this.alcoholsList.filter((alcohol) => {
+        return alcohol.categories.filter((item) => item === category.name)
+          .length;
+      });
       if (this.displayedAlcohols.length > 0) {
-        [this.selectedAlcohol] = this.displayedAlcohols;
+        this.selectedAlcohol = this.displayedAlcohols[0];
         this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name));
         this.updateCurrentAlcohol(this.selectedAlcohol.id);
       }
@@ -229,7 +230,7 @@ export default {
     },
     calculateResult() {
       if (this.checkFields()) {
-        this.$store.dispatch('UPDATE_STATS', {
+        this.$store.dispatch("UPDATE_STATS", {
           volume: this.volume,
           weight: this.weight,
           sex: this.sex,
