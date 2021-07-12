@@ -13,10 +13,12 @@
               <div class="text-overline mb-2">
                 Peter sa biere c'est bien, finir sa lubullule c'est mieux.
               </div>
-              <v-list-item-title class="text-h3">
-                MaLubullule
-              </v-list-item-title>
-              <v-list-item-subtitle>100% original.</v-list-item-subtitle>
+              <div class="d-none d-lg-block d-print-block">
+                <v-list-item-title class="text-h3">
+                  MaLubullule
+                </v-list-item-title>
+                <v-list-item-subtitle>100% original.</v-list-item-subtitle>
+              </div>
             </v-list-item-content>
           </v-list-item>
           <v-card-text>
@@ -177,9 +179,9 @@ export default {
       return this.$store.getters.CURRENT_ALCOHOL;
     },
     categories() {
-      let value = this.$store.getters.CATEGORIES
-      value.sort((a, b) => a.displayName.localeCompare(b.displayName))
-      return value
+      let value = this.$store.getters.CATEGORIES;
+      value.sort((a, b) => a.displayName.localeCompare(b.displayName));
+      return value;
     },
     stats() {
       return this.$store.getters.STATS;
@@ -219,7 +221,7 @@ export default {
         this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name));
         this.updateCurrentAlcohol(this.selectedAlcohol.id);
       }
-      this.calculateResult()
+      this.calculateResult();
     },
 
     checkFields() {
