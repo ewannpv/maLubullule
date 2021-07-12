@@ -33,5 +33,5 @@ export const alcohols = [
   new Alcohol('Ballantine\'s', 40, 0.7, ['wisky']),
   new Alcohol('Charette', 49, 1, ['rum', 'whiteRum', 'classic']),
   new Alcohol('Cointreau', 40, 0.7, ['triplesec', 'digestif']),
-  new Alcohol('Grey Goose', 40, 1.75,['rum', 'whiteRum']),
+  new Alcohol('Grey Goose', 40, 1.75,['vodka']),
 ]
