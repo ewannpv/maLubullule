@@ -10,14 +10,13 @@ export const categories = [
   new Category('whiteRum', 'Rhum blanc'),
   new Category('vodka', 'Vodka'),
   new Category('wisky', 'Wisky'),
-  new Category('other', 'Autre'),
   new Category('digestif', 'Digestif'),
   new Category('martini', 'Martini'),
   new Category('gin', 'Gin'),
   new Category('triplesec', 'Triple sec'),
 ]
 
-// name, abv, volume.
+// name, abv, volume, categories.
 export const alcohols = [
   new Alcohol('86 Original', 8.6, 0.5, ['classic', 'beer']),
   new Alcohol('86 Extreme', 10.5, 0.5, ['beer']),
@@ -27,12 +26,12 @@ export const alcohols = [
   new Alcohol('Desperados', 5.9, 0.33, ['beer']),
   new Alcohol('Ricard', 45, 0.70, ['classic', 'digestif']),
   new Alcohol('Aperol', 15, 1, ['digestif']),
-  new Alcohol('Old Nick', 15, 0.7, ['rum', 'whiteRum', 'classic']),
-  new Alcohol('Bianco Martini', 15, 1.5, ['martini']),
+  new Alcohol('Old Nick', 40, 0.7, ['rum', 'whiteRum', 'classic']),
   new Alcohol('Bianco Martini', 15, 1.5, ['martini']),
   new Alcohol('Absolut Vodka', 40, 1, ['vodka']),
   new Alcohol('Bombay dry gin', 37.5, 0.7, ['gin']),
   new Alcohol('Ballantine\'s', 40, 0.7, ['wisky']),
   new Alcohol('Charette', 49, 1, ['rum', 'whiteRum', 'classic']),
   new Alcohol('Cointreau', 40, 0.7, ['triplesec', 'digestif']),
+  new Alcohol('Grey Goose', 40, 1.75,['rum', 'whiteRum']),
 ]
