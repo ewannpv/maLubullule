@@ -91,10 +91,10 @@
                   <v-col cols="12" sm="6" class="text-start">
                     <v-list-item class="pl-0 text-h6" two-line>
                       <v-list-item-content>
-                        <v-list-item-title
+                        <v-list-item-title class="wrapped-item"
                           >Taux d’alcoolémie :
                           <b> {{ alcoholLevel }}g/L </b>
-                          <v-list-item-subtitle
+                          <v-list-item-subtitle class="wrapped-item"
                             >Seuil légale : 0.5g/L</v-list-item-subtitle
                           >
                         </v-list-item-title>
@@ -102,7 +102,7 @@
                     </v-list-item>
                     <v-list-item class="pl-0 text-h6">
                       <v-list-item-content>
-                        <v-list-item-title
+                        <v-list-item-title class="wrapped-item"
                           >Gramme d’alcools ingérés :
                           <b> {{ alcoholAbsorbed }}g </b>
                         </v-list-item-title>
@@ -110,7 +110,7 @@
                     </v-list-item>
                     <v-list-item class="pl-0 text-h6">
                       <v-list-item-content>
-                        <v-list-item-title
+                        <v-list-item-title class="wrapped-item"
                           >Temps estimé pour atteindre le seuil légal :
                           <b> {{ estimatedTime }}min </b>
                         </v-list-item-title>
@@ -141,6 +141,9 @@
 </template>
 
 <style scoped>
+.wrapped-item {
+  white-space: normal;
+}
 </style>
 
 <script>
@@ -159,7 +162,6 @@ export default {
   },
   mounted() {
     this.selectedAlcohol = this.$store.getters.CURRENT_ALCOHOL;
-    console.log(this.category);
     this.displayedAlcohols = this.$store.getters.ALCOHOLS;
     this.volume = this.selectedAlcohol.volume;
     this.calculateResult();
