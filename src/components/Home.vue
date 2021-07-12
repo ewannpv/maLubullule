@@ -45,7 +45,7 @@
                       color="secondary"
                       v-model="selectedAlcohol"
                       :hint="`
-                      ${selectedAlcohol ? selectedAlcohol.name : ''}, 
+                      ${selectedAlcohol ? selectedAlcohol.name : ''},
                       ${selectedAlcohol ? selectedAlcohol.abv : ''}%`"
                       :items="displayedAlcohols"
                       item-text="name"
@@ -152,7 +152,7 @@
 
 <script>
 export default {
-  name: "Home",
+  name: 'Home',
   data() {
     return {
       selectedAlcohol: null,
@@ -199,23 +199,21 @@ export default {
       return parseInt((this.stats.alcoholLevel / 0.5) * 100);
     },
     estimatedTime() {
-      if (!this.stats) return "0";
+      if (!this.stats) return '0';
       let minutes = this.stats.estimatedTime;
       const hours = parseInt(minutes / 60);
       minutes %= 60;
-      return hours + "h" + minutes;
+      return `${hours}h${minutes}`;
     },
   },
   methods: {
     updateCurrentAlcohol(id) {
-      this.$store.dispatch("UPDATE_CURRENT_ALCOHOL", id);
+      this.$store.dispatch('UPDATE_CURRENT_ALCOHOL', id);
       this.volume = this.currentAlcohol.volume;
     },
     updateDisplayedAlcohols(category) {
-      this.displayedAlcohols = this.alcoholsList.filter((alcohol) => {
-        return alcohol.categories.filter((item) => item === category.name)
-          .length;
-      });
+      this.displayedAlcohols = this.alcoholsList.filter((alcohol) => alcohol.categories.filter((item) => item === category.name)
+        .length);
       if (this.displayedAlcohols.length > 0) {
         this.selectedAlcohol = this.displayedAlcohols[0];
         this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name));
@@ -230,7 +228,7 @@ export default {
     },
     calculateResult() {
       if (this.checkFields()) {
-        this.$store.dispatch("UPDATE_STATS", {
+        this.$store.dispatch('UPDATE_STATS', {
           volume: this.volume,
           weight: this.weight,
           sex: this.sex,
