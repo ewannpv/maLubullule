@@ -154,12 +154,11 @@ export default {
       volume: 0,
       shouldDispayResults: false,
       displayedAlcohols: [],
-      category: [],
+      category: null,
     };
   },
   mounted() {
     this.selectedAlcohol = this.$store.getters.CURRENT_ALCOHOL;
-    this.category = this.$store.getters.CATEGORIES[0];
     console.log(this.category);
     this.displayedAlcohols = this.$store.getters.ALCOHOLS;
     this.volume = this.selectedAlcohol.volume;
@@ -176,7 +175,9 @@ export default {
       return this.$store.getters.CURRENT_ALCOHOL;
     },
     categories() {
-      return this.$store.getters.CATEGORIES;
+      let value = this.$store.getters.CATEGORIES
+      value.sort((a, b) => a.displayName.localeCompare(b.displayName))
+      return value
     },
     stats() {
       return this.$store.getters.STATS;
@@ -213,6 +214,7 @@ export default {
       });
       if (this.displayedAlcohols.length > 0) {
         this.selectedAlcohol = this.displayedAlcohols[0];
+        this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name));
         this.updateCurrentAlcohol(this.selectedAlcohol.id);
       }
       this.calculateResult()
