@@ -3,19 +3,18 @@ import Category from "./category"
 
 // name, displayName.
 export const categories = [
-  new Category('classic', 'classique'),
-  new Category('beer', 'bière'),
+  new Category('classic', 'Classique'),
+  new Category('beer', 'Bière'),
   new Category('rum', 'Rhum'),
   new Category('darkRum', 'Rhum brun'),
   new Category('whiteRum', 'Rhum blanc'),
-  new Category('vodka', 'vodka'),
-  new Category('wisky', 'wisky'),
+  new Category('vodka', 'Vodka'),
+  new Category('wisky', 'Wisky'),
   new Category('other', 'Autre'),
-  new Category('digestif', 'digestif'),
-  new Category('martini', 'martini'),
-  new Category('gin', 'gin'),
-  new Category('triplesec', 'triple sec'),
-
+  new Category('digestif', 'Digestif'),
+  new Category('martini', 'Martini'),
+  new Category('gin', 'Gin'),
+  new Category('triplesec', 'Triple sec'),
 ]
 
 // name, abv, volume.
@@ -34,6 +33,6 @@ export const alcohols = [
   new Alcohol('Absolut Vodka', 40, 1, ['vodka']),
   new Alcohol('Bombay dry gin', 37.5, 0.7, ['gin']),
   new Alcohol('Ballantine\'s', 40, 0.7, ['wisky']),
-  new Alcohol('Charette', 49, 1, ['rum','whiteRum','classic']),
-  new Alcohol('Cointreau', 40, 0.7, ['triplesec','digestif']),
+  new Alcohol('Charette', 49, 1, ['rum', 'whiteRum', 'classic']),
+  new Alcohol('Cointreau', 40, 0.7, ['triplesec', 'digestif']),
 ]
