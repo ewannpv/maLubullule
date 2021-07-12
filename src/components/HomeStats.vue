@@ -1,5 +1,6 @@
 <template>
-<v-container grid-list-xs>
+<v-container grid-list-md>
+
   <v-row>
     <v-col cols="12" sm="6" class="text-start">
       <v-list-item class="pl-0 text-h6" two-line>
