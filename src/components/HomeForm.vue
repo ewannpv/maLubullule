@@ -29,6 +29,7 @@
             item-text="displayName"
             label="Catégorie"
             persistent-hint
+            hint="Catégorie du brevage"
             return-object
             @change="updateDisplayedAlcohols(category)"
             single-line
@@ -37,8 +38,8 @@
         <v-col cols="12" lg="3" md="6">
           <v-text-field
             v-model="volume"
-            hint="Volume d'une dose en cL"
-            label="Volume d'une dose (cL)"
+            persistent-hint
+            hint="Volume d'une dose (cL)"
             @change="calculateResult"
           ></v-text-field>
         </v-col>

@@ -8,7 +8,7 @@
           <v-list-item-title class="wrapped-item"
             >Taux d’alcoolémie :
             <b> {{ alcoholLevel }}g/L </b>
-            <v-list-item-subtitle class="wrapped-item">Seuil légale : 0.5g/L</v-list-item-subtitle>
+            <v-list-item-subtitle class="wrapped-item">Seuil légal : 0.5g/L</v-list-item-subtitle>
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
