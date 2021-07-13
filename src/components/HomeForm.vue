@@ -36,7 +36,7 @@
         </v-col>
         <v-col cols="12" lg="3" md="6">
           <v-text-field
-            v-model="volume"
+            v-model.number="volume"
             persistent-hint
             hint="Volume d'une dose (cL)"
             @change="calculateResult"
@@ -68,7 +68,7 @@
         </v-col>
         <v-col cols="12" lg="3" md="6">
           <v-text-field
-            v-model="weight"
+            v-model.number="weight"
             hint="Ton poids en Kg."
             label="Poids (kg)"
             @change="calculateResult"
@@ -150,8 +150,9 @@ export default {
       this.calculateResult();
     },
     checkFields() {
-      // TODO.
-      return true;
+      const volume = parseFloat(this.volume);
+      const height = parseFloat(this.height);
+      return !Number.isNaN(volume) || !Number.isNaN(height);
     },
     calculateResult() {
       if (this.checkFields()) {
