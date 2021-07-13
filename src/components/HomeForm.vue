@@ -67,7 +67,7 @@
             </v-col>
           </v-row>
         </v-col>
-        <v-col cols="12" sm="6">
+        <v-col cols="12" lg="3" md="6">
           <v-text-field
             v-model="weight"
             hint="Ton poids en Kg."
@@ -75,7 +75,7 @@
             @change="calculateResult"
           ></v-text-field>
         </v-col>
-        <v-col cols="12" sm="6">
+        <v-col cols="12" lg="3" md="6">
           <v-row>
             <v-subheader> Genre : </v-subheader>
             <v-switch
