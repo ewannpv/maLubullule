@@ -10,7 +10,7 @@
               `
           ${selectedAlcohol ? selectedAlcohol.name : ''},
           ${selectedAlcohol ? selectedAlcohol.abv : ''}%,
-          ${selectedAlcohol ? selectedAlcohol.volume : ''}L`
+          ${selectedAlcohol ? selectedAlcohol.volume : ''}cL`
             "
             :items="displayedAlcohols"
             item-text="name"
