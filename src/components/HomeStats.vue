@@ -2,6 +2,17 @@
 <v-container grid-list-md>
 
   <v-row>
+    <v-col cols="12" sm="6">
+      <v-col cols="12"><h2>Taux d'alcoolémie / Limite Légale</h2></v-col>
+      <v-progress-circular
+        :rotate="360"
+        :size="200"
+        :width="15"
+        :value="circleValue"
+        color="primary"
+        ><h1>{{ circleValue }}%</h1>
+      </v-progress-circular>
+    </v-col>
     <v-col cols="12" sm="6" class="text-start">
       <v-list-item class="pl-0 text-h6" two-line>
         <v-list-item-content>
@@ -28,17 +39,6 @@
           </v-list-item-title>
         </v-list-item-content>
       </v-list-item>
-    </v-col>
-    <v-col cols="12" sm="6">
-      <v-col cols="12"><h2>Taux d'alcoolémie / Limite Légale</h2></v-col>
-      <v-progress-circular
-        :rotate="360"
-        :size="200"
-        :width="15"
-        :value="circleValue"
-        color="primary"
-        ><h1>{{ circleValue }}%</h1>
-      </v-progress-circular>
     </v-col>
   </v-row>
 </v-container>

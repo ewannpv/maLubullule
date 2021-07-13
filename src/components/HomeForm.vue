@@ -5,25 +5,6 @@
         <v-col cols="12" md="3">
           <v-select
             class="custom-select"
-            v-model="selectedAlcohol"
-            :hint="
-              `
-          ${selectedAlcohol ? selectedAlcohol.name : ''},
-          ${selectedAlcohol ? selectedAlcohol.abv : ''}%,
-          ${selectedAlcohol ? selectedAlcohol.volume : ''}cL`
-            "
-            :items="displayedAlcohols"
-            item-text="name"
-            label="Brevage"
-            @change="updateCurrentAlcohol(selectedAlcohol.id)"
-            persistent-hint
-            return-object
-            single-line
-          ></v-select>
-        </v-col>
-        <v-col cols="12" md="3">
-          <v-select
-            class="custom-select"
             v-model="category"
             :items="categories"
             item-text="displayName"
@@ -32,6 +13,24 @@
             hint="Catégorie du brevage"
             return-object
             @change="updateDisplayedAlcohols(category)"
+            single-line
+          ></v-select>
+        </v-col>
+        <v-col cols="12" md="3">
+          <v-select
+            class="custom-select"
+            v-model="selectedAlcohol"
+            :hint="
+              `
+          ${selectedAlcohol ? selectedAlcohol.name : ''},
+          ${selectedAlcohol ? selectedAlcohol.abv : ''}%`
+            "
+            :items="displayedAlcohols"
+            item-text="name"
+            label="Brevage"
+            @change="updateCurrentAlcohol(selectedAlcohol.id)"
+            persistent-hint
+            return-object
             single-line
           ></v-select>
         </v-col>
