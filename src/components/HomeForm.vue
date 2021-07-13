@@ -90,6 +90,16 @@
   </v-form>
 </template>
 
+<style scoped>
+.wrapped-item {
+  white-space: normal;
+}
+
+.custom-select > .v-list-item__title {
+  color: darkseagreen !important;
+}
+</style>
+
 <script>
 export default {
   data() {
