@@ -1,8 +1,8 @@
 <template>
   <v-form>
     <v-container grid-list-md>
-      <v-row align="center">
-        <v-col cols="12" lg="3">
+      <v-row align-center>
+        <v-col cols="12" md="3">
           <v-select
             class="custom-select"
             v-model="selectedAlcohol"
@@ -21,7 +21,7 @@
             single-line
           ></v-select>
         </v-col>
-        <v-col cols="12" lg="3">
+        <v-col cols="12" md="3">
           <v-select
             class="custom-select"
             v-model="category"
@@ -34,13 +34,37 @@
             single-line
           ></v-select>
         </v-col>
-        <v-col cols="12" sm="6">
+        <v-col cols="12" lg="3" md="6">
           <v-text-field
             v-model="volume"
-            hint="Volume total en Litre"
-            label="Volume (L)"
+            hint="Volume d'une dose en cL"
+            label="Volume d'une dose (cL)"
             @change="calculateResult"
           ></v-text-field>
+        </v-col>
+        <v-col cols="12" lg="3">
+          <v-row align-center>
+            <v-col>
+              <v-btn class="mx-2" outlined color="primary" @click="decreaseDoses">
+                <v-icon dark>
+                  mdi-minus
+                </v-icon>
+              </v-btn>
+            </v-col>
+            <v-col class="mt-2">
+              {{ doses }}
+              <v-icon dark>
+                mdi-glass-tulip
+              </v-icon>
+            </v-col>
+            <v-col>
+              <v-btn class="mx-2" outlined color="primary" @click="increaseDoses">
+                <v-icon dark>
+                  mdi-plus
+                </v-icon>
+              </v-btn>
+            </v-col>
+          </v-row>
         </v-col>
         <v-col cols="12" sm="6">
           <v-text-field
@@ -70,6 +94,7 @@
 export default {
   data() {
     return {
+      doses: 1,
       selectedAlcohol: null,
       weight: 70,
       sex: true,
@@ -112,7 +137,18 @@ export default {
       }
       this.calculateResult();
     },
-
+    increaseDoses() {
+      this.doses += 1;
+      this.calculateResult();
+    },
+    decreaseDoses() {
+      if (this.doses < 2) {
+        this.doses = 1;
+      } else {
+        this.doses -= 1;
+      }
+      this.calculateResult();
+    },
     checkFields() {
       // TODO.
       return true;
@@ -120,7 +156,7 @@ export default {
     calculateResult() {
       if (this.checkFields()) {
         this.$store.dispatch('UPDATE_STATS', {
-          volume: this.volume,
+          volume: this.volume * this.doses,
           weight: this.weight,
           sex: this.sex,
         });
