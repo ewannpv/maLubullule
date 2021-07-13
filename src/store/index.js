@@ -46,7 +46,9 @@ export default new Vuex.Store({
     },
     UPDATE_STATS: (context, { volume, weight, sex }) => {
       context.commit('CALCULATE_STATS', {
-        volume, weight, sex,
+        volume,
+        weight,
+        sex,
       });
     },
   },

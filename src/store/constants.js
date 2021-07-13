@@ -14,9 +14,9 @@ export const categories = [
   new Category('martini', 'Martini'),
   new Category('gin', 'Gin'),
   new Category('triplesec', 'Triple sec'),
-]
+];
 
-// name, abv, volume, categories.
+// name, abv, volume (cL), categories.
 export const alcohols = [
   new Alcohol('86 Original', 8.6, 0.5, ['classic', 'beer']),
   new Alcohol('86 Extreme', 10.5, 0.5, ['beer']),
@@ -39,4 +39,4 @@ export const alcohols = [
   new Alcohol('Leffe Blonde', 6.6, 0.33, ['beer', 'classic']),
   new Alcohol('Leffe Ruby', 5, 0.33, ['beer']),
   new Alcohol('Grimbergen', 6.7, 0.33, ['beer']),
-]
+];

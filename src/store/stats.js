@@ -1,7 +1,7 @@
 const alcoholAbsorbed = (abv, volume) => {
   if (abv === 0 || volume === 0) return 0;
   // 1L of alcohol = 800g.
-  return abv * volume * 8;
+  return abv * (volume / 100) * 8;
 };
 
 const estimatedTime = (alcoholLevel, sex) => {
