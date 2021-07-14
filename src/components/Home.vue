@@ -26,16 +26,6 @@
   </v-container>
 </template>
 
-<style scoped>
-.wrapped-item {
-  white-space: normal;
-}
-
-.custom-select > .v-list-item__title {
-  color: darkseagreen !important;
-}
-</style>
-
 <script>
 import HomeForm from './HomeForm.vue';
 import HomeStats from './HomeStats.vue';
