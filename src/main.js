@@ -8,7 +8,7 @@ Vue.config.productionTip = false;
 
 // Configuration VueAnalytics
 Vue.use(VueAnalytics, {
-  id: '279366841',
+  id: 'G-09KQXN61WF',
 });
 
 new Vue({
