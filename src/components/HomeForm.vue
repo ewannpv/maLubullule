@@ -123,10 +123,14 @@ export default {
   methods: {
     updateCurrentAlcohol(id) {
       this.$store.dispatch('UPDATE_CURRENT_ALCOHOL', id);
+      this.$gtag.event('update_alcohol', { alcohol: this.currentAlcohol.name });
+
       this.volume = this.currentAlcohol.volume;
       this.calculateResult();
     },
     updateDisplayedAlcohols(category) {
+      this.$gtag.event('update_category', { category: category.name });
+
       this.displayedAlcohols = this.alcoholsList.filter(
         (alcohol) => alcohol.categories.filter((item) => item === category.name).length,
       );
