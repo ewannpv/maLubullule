@@ -11,3 +11,11 @@ export default class Alcohol {
     this.id = randomId();
   }
 }
+
+export const customAlcohols = () => {
+  const alcohols = [];
+  for (let index = 1; index <= 100; index += 1) {
+    const name = `Brevage ${index.toString()}°`;
+    alcohols.push(new Alcohol(name, index, 5, 'custom'));
+  }
+};

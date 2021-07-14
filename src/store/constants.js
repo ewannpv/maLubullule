@@ -14,6 +14,7 @@ export const categories = [
   new Category('martini', 'Martini'),
   new Category('gin', 'Gin'),
   new Category('triplesec', 'Triple sec'),
+  new Category('custom', 'Custom'),
 ];
 
 // name, abv, volume, categories.
