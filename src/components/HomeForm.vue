@@ -9,8 +9,7 @@
             :hint="
               `
           ${selectedAlcohol ? selectedAlcohol.name : ''},
-          ${selectedAlcohol ? selectedAlcohol.abv : ''}%,
-          ${selectedAlcohol ? selectedAlcohol.volume : ''}cL`
+          ${selectedAlcohol ? selectedAlcohol.abv : ''}%`
             "
             :items="displayedAlcohols"
             item-text="name"
@@ -133,7 +132,7 @@ export default {
       );
       if (this.displayedAlcohols.length > 0) {
         [this.selectedAlcohol] = this.displayedAlcohols;
-        if (category !== 'custom') { this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name)); }
+        if (category.name !== 'custom') { this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name)); }
         this.updateCurrentAlcohol(this.selectedAlcohol.id);
       }
       this.calculateResult();
