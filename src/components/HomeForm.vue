@@ -133,7 +133,7 @@ export default {
       );
       if (this.displayedAlcohols.length > 0) {
         [this.selectedAlcohol] = this.displayedAlcohols;
-        this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name));
+        if (category !== 'custom') { this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name)); }
         this.updateCurrentAlcohol(this.selectedAlcohol.id);
       }
       this.calculateResult();

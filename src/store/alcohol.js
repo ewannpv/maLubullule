@@ -12,10 +12,13 @@ export default class Alcohol {
   }
 }
 
-export const customAlcohols = () => {
+const GetCustomAlcohols = () => {
   const alcohols = [];
   for (let index = 1; index <= 100; index += 1) {
     const name = `Brevage ${index.toString()}°`;
-    alcohols.push(new Alcohol(name, index, 5, 'custom'));
+    alcohols.push(new Alcohol(name, index, 5, ['custom']));
   }
+  return alcohols;
 };
+
+export const customAlcohols = GetCustomAlcohols();
