@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Alcohol from './alcohol';
-import { FetchAlcohols, FetchCategories } from './apis';
+import { FetchAlcohols, FetchCategories } from './api';
 import Stats from './stats';
 
 Vue.use(Vuex);

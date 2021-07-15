@@ -1,9 +1,11 @@
+// Returns the amount of absorbed alcohol in grams.
 const alcoholAbsorbed = (abv, volume) => {
   if (abv === 0 || volume === 0) return 0;
   // 1L of alcohol = 800g.
   return abv * (volume / 100) * 8;
 };
 
+// Returns the amount of time to reach the the legal threshold in minutes.
 const estimatedTime = (alcoholLevel, sex) => {
   // Homme : 0,10g/L à 0,15g/L par heure,
   // Femme : 0,085g/L à 0,10g/L par heure.
@@ -17,9 +19,13 @@ const estimatedTime = (alcoholLevel, sex) => {
 
 export default class Stats {
   constructor(alcohol, volume, weight, sex) {
+    // String that stores the amount of absorbed alcohol in grams.
     this.alcoholAbsorbed = alcoholAbsorbed(alcohol.abv, volume);
+    // Float that stores the diffusion coefficient according to the sex.
     this.diffusionCoef = sex ? 0.7 : 0.6;
+    // Float that store the alcohol level.
     this.alcoholLevel = this.alcoholAbsorbed / (weight * this.diffusionCoef);
+    // Int that stores the amount of time to reach the the legal threshold.
     this.estimatedTime = estimatedTime(this.alcoholLevel, sex);
   }
 }
