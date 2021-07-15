@@ -8,11 +8,18 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
+    // Alcohol used to store the selected alcohol.
     currentAlcohol: null,
+    // Float that stores the volume of one dose.
     volume: null,
+    // [Alcohol] used to store fetched alcohols.
     alcohols: null,
+    // [Category] used to store fetched categories.
     categories: [],
+    // Stats that stores informations to display.
     stats: null,
+
+    // Booleans used to know when datas have been feteched.
     alcoholsFetched: false,
     categoriesFetched: false,
   },

@@ -53,7 +53,7 @@
 <script>
 export default {
   computed: {
-    // Object that stores informations to display.
+    // Stats that stores informations to display.
     stats() {
       return this.$store.getters.STATS;
     },
