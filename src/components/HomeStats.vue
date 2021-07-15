@@ -87,11 +87,17 @@ export default {
         case (this.circleValue < 75): return 'green darken-2';
         case (this.circleValue < 90): return 'orange darken-1';
         case (this.circleValue < 100): return 'deep-orange';
-        case (this.circleValue < 200): return 'red darken-1';
+        case (this.circleValue < 150): return 'red darken-2';
+        case (this.circleValue < 200): return 'pink accent-3';
         case (this.circleValue < 300): return 'pink darken-1';
         case (this.circleValue < 400): return 'purple darken-1';
         case (this.circleValue < 500): return 'deep-purple darken-1';
         case (this.circleValue < 600): return 'indigo darken-1';
+        case (this.circleValue < 700): return 'blue darken-1';
+        case (this.circleValue < 800): return 'yellow darken-1';
+        case (this.circleValue < 900): return 'green darken-1';
+        case (this.circleValue < 1000): return 'cyan accent-2';
+
         default:
           return 'blue darken-1';
       }
