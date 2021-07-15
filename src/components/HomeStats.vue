@@ -36,7 +36,7 @@
         :size="200"
         :width="15"
         :value="circleValue"
-        color="primary"
+        v-bind:color='colorCircle'
         ><h1>{{ circleValue }}%</h1>
       </v-progress-circular>
     </v-col>
@@ -78,6 +78,21 @@ export default {
       const hours = parseInt(minutes / 60, 10);
       minutes %= 60;
       return `${hours}h${minutes}`;
+    },
+    colorCircle() {
+      switch (true) {
+        case (this.circleValue < 50): return 'green';
+        case (this.circleValue < 75): return 'green darken-2';
+        case (this.circleValue < 90): return 'orange darken-1';
+        case (this.circleValue < 100): return 'deep-orange';
+        case (this.circleValue < 200): return 'red darken-1';
+        case (this.circleValue < 300): return 'pink darken-1';
+        case (this.circleValue < 400): return 'purple darken-1';
+        case (this.circleValue < 500): return 'deep-purple darken-1';
+        case (this.circleValue < 600): return 'indigo darken-1';
+        default:
+          return 'blue darken-1';
+      }
     },
   },
 };
