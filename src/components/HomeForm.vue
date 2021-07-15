@@ -111,12 +111,13 @@ export default {
     };
   },
   mounted() {
-    this.selectedAlcohol = this.currentAlcohol;
-    [this.category] = this.categories;
-    this.updateDisplayedAlcohols(this.category);
-    this.calculateResult();
+    this.$store.dispatch('FETCH_CATEGORIES');
+    this.$store.dispatch('FETCH_ALCOHOLS');
   },
   computed: {
+    dataFetched() {
+      return this.$store.getters.DATAFETCHED;
+    },
     alcoholsList() {
       return this.$store.getters.ALCOHOLS;
     },
@@ -129,6 +130,14 @@ export default {
     customCategorySelected() {
       if (!this.category) { return false; }
       return this.category.name === 'custom';
+    },
+  },
+  watch: {
+    dataFetched() {
+      this.selectedAlcohol = this.currentAlcohol;
+      [this.category] = this.categories;
+      this.updateDisplayedAlcohols(this.category);
+      this.calculateResult();
     },
   },
   methods: {

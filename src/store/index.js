@@ -1,26 +1,39 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Alcohol from './alcohol';
-import { alcohols, categories } from './constants';
+import { FetchAlcohols, FetchCategories } from './constants';
 import Stats from './stats';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    currentAlcohol: alcohols[0],
-    volume: alcohols[0].volume,
-    alcohols,
-    categories,
+    currentAlcohol: null,
+    volume: null,
+    alcohols: null,
+    categories: [],
     stats: null,
+    alcoholsFetched: false,
+    categoriesFetched: false,
   },
   getters: {
     CURRENT_ALCOHOL: (state) => state.currentAlcohol,
     ALCOHOLS: (state) => state.alcohols,
     CATEGORIES: (state) => state.categories,
     STATS: (state) => state.stats,
+    DATAFETCHED: (state) => state.alcoholsFetched && state.categoriesFetched,
   },
   mutations: {
+    SET_CATEGORIES: (state, fetchedCategories) => {
+      state.categories = fetchedCategories;
+      state.categoriesFetched = true;
+    },
+    SET_ALCOHOLS: (state, fetchedAlcohols) => {
+      state.alcohols = fetchedAlcohols;
+      state.currentAlcohol = [fetchedAlcohols];
+      state.volume = state.currentAlcohol.volume;
+      state.alcoholsFetched = true;
+    },
     SET_CURRENT_ALCOHOL: (state, id) => {
       const newAlcohol = state.alcohols.filter((item) => item.id === id)[0];
       if (!newAlcohol) return;
@@ -44,6 +57,12 @@ export default new Vuex.Store({
     },
   },
   actions: {
+    FETCH_CATEGORIES: (context) => {
+      FetchCategories(context);
+    },
+    FETCH_ALCOHOLS: (context) => {
+      FetchAlcohols(context);
+    },
     SAVE_ALCOHOL: (context, { name, abv, volume }) => {
       context.commit('ADD_ALCOHOL', name, abv, volume);
     },

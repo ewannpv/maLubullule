@@ -1,25 +1,50 @@
 import Alcohol from './alcohol';
 import Category from './category';
 
-const database = require('./database.json');
+const fetch = require('node-fetch');
 
-const GetCategories = () => {
-  const categoriesList = [];
-  database.categories.forEach((item) => {
-    const category = new Category(item[0], item[1]);
-    categoriesList.push(category);
-  });
-  return categoriesList;
+const categoriesURL = 'https://spreadsheets.google.com/feeds/list/1epQ281j0OEPEc-UD4_8zpWBcun1f_iQvRXHGcRmJvks/2/public/values?alt=json';
+const alcoholsURL = 'https://spreadsheets.google.com/feeds/list/1epQ281j0OEPEc-UD4_8zpWBcun1f_iQvRXHGcRmJvks/1/public/values?alt=json';
+
+const fetchSettings = { method: 'Get' };
+
+export const FetchCategories = (context) => {
+  fetch(categoriesURL, fetchSettings)
+    .then((res) => res.json())
+    .then((json) => {
+      const categories = [];
+      const rows = json.feed.entry;
+
+      rows.forEach((row) => {
+        const name = row.gsx$name.$t;
+        const displayName = row.gsx$displayedname.$t;
+        const category = new Category(name, displayName);
+        categories.push(category);
+      });
+      context.commit('SET_CATEGORIES', categories);
+    });
 };
 
-const GetAlcohols = () => {
-  const alcoholsList = [];
-  database.alcohols.forEach((item) => {
-    const alcohol = new Alcohol(item[0], item[1], item[2], item[3]);
-    alcoholsList.push(alcohol);
-  });
-  return alcoholsList;
-};
+export const FetchAlcohols = (context) => {
+  fetch(alcoholsURL, fetchSettings)
+    .then((res) => res.json())
+    .then((json) => {
+      const alcohols = [];
+      const rows = json.feed.entry;
 
-export const categories = GetCategories();
-export const alcohols = GetAlcohols();
+      rows.forEach((row) => {
+        const name = row.gsx$name.$t;
+        const abv = row.gsx$abv.$t;
+        const volume = row.gsx$volume.$t;
+        const categories = [];
+        for (let i = 1; i <= 5; i += 1) {
+          const index = 'gsx$category'.concat(i);
+          const category = row[index].$t;
+          if (category) { categories.push(category); }
+        }
+        const alcohol = new Alcohol(name, abv, volume, categories);
+        alcohols.push(alcohol);
+      });
+      context.commit('SET_ALCOHOLS', alcohols);
+    });
+};
