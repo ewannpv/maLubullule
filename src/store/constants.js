@@ -1,4 +1,4 @@
-import Alcohol, { customAlcohols } from './alcohol';
+import Alcohol from './alcohol';
 import Category from './category';
 
 const database = require('./database.json');
@@ -18,7 +18,7 @@ const GetAlcohols = () => {
     const alcohol = new Alcohol(item[0], item[1], item[2], item[3]);
     alcoholsList.push(alcohol);
   });
-  return [...alcoholsList, ...customAlcohols];
+  return alcoholsList;
 };
 
 export const categories = GetCategories();

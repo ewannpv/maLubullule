@@ -3,8 +3,15 @@
     <v-container grid-list-md>
       <v-row align-center>
         <v-col cols="12" md="3">
+          <v-text-field
+            v-if="customCategorySelected"
+            v-model="customAbv"
+            persistent-hint
+            hint="Degré d'alcool du brevage"
+            @change="updateCustomBrevage">
+            </v-text-field>
           <v-select
-            class="custom-select"
+            v-else
             v-model="selectedAlcohol"
             :hint="
               `
@@ -22,7 +29,6 @@
         </v-col>
         <v-col cols="12" md="3">
           <v-select
-            class="custom-select"
             v-model="category"
             :items="categories"
             item-text="displayName"
@@ -96,6 +102,7 @@ export default {
     return {
       doses: 1,
       selectedAlcohol: null,
+      customAbv: 15,
       weight: 70,
       sex: true,
       volume: 0,
@@ -119,6 +126,10 @@ export default {
     categories() {
       return this.$store.getters.CATEGORIES;
     },
+    customCategorySelected() {
+      if (!this.category) { return false; }
+      return this.category.name === 'custom';
+    },
   },
   methods: {
     updateCurrentAlcohol(id) {
@@ -128,17 +139,25 @@ export default {
       this.volume = this.currentAlcohol.volume;
       this.calculateResult();
     },
+    updateCustomBrevage() {
+      this.$store.dispatch('UPDATE_CUSTOM_ALCOHOL', this.customAbv);
+      this.$gtag.event('update_alcohol', { alcohol: `custom: ${this.customAbv.toString}` });
+      this.volume = this.currentAlcohol.volume;
+      this.calculateResult();
+    },
+
     updateDisplayedAlcohols(category) {
       this.$gtag.event('update_category', { category: category.name });
 
       this.displayedAlcohols = this.alcoholsList.filter(
         (alcohol) => alcohol.categories.filter((item) => item === category.name).length,
       );
-      if (this.displayedAlcohols.length > 0) {
+      if (this.displayedAlcohols.length > 0 && category.name !== 'custom') {
         [this.selectedAlcohol] = this.displayedAlcohols;
-        if (category.name !== 'custom') { this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name)); }
+        this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name));
         this.updateCurrentAlcohol(this.selectedAlcohol.id);
-      }
+      } else { this.updateCustomBrevage(); }
+
       this.calculateResult();
     },
     increaseDoses() {

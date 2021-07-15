@@ -21,4 +21,5 @@ const GetCustomAlcohols = () => {
   return alcohols;
 };
 
+// Currently disabled.
 export const customAlcohols = GetCustomAlcohols();

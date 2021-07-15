@@ -28,6 +28,12 @@ export default new Vuex.Store({
       state.currentAlcohol = newAlcohol;
       state.volume = state.currentAlcohol.volume;
     },
+    SET_CUSTOM_ALCOHOL: (state, abv) => {
+      const newAlcohol = new Alcohol('custom', abv, 5, ['custom']);
+
+      state.currentAlcohol = newAlcohol;
+      state.volume = state.currentAlcohol.volume;
+    },
     ADD_ALCOHOL: (state, { name, abv, volume }) => {
       const alcohol = new Alcohol(name, abv, volume);
       if (alcohol) state.currentAlcohol.push(alcohol);
@@ -43,6 +49,9 @@ export default new Vuex.Store({
     },
     UPDATE_CURRENT_ALCOHOL: (context, id) => {
       context.commit('SET_CURRENT_ALCOHOL', id);
+    },
+    UPDATE_CUSTOM_ALCOHOL: (context, abv) => {
+      context.commit('SET_CUSTOM_ALCOHOL', abv);
     },
     UPDATE_STATS: (context, { volume, weight, sex }) => {
       context.commit('CALCULATE_STATS', {
