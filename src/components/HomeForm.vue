@@ -31,7 +31,7 @@
           <v-select
             v-model="category"
             :items="categories"
-            item-text="displayName"
+            item-text="displayedName"
             label="Catégorie"
             persistent-hint
             hint="Catégorie du brevage"
