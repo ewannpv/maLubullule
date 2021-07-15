@@ -8,7 +8,7 @@ Vue.config.productionTip = false;
 
 // Configuration VueAnalytics
 Vue.use(VueGtag, {
-  config: { id: 'G-09KQXN61WF' },
+  config: { id: 'G-CVZ9JDZ040' },
 });
 
 new Vue({
