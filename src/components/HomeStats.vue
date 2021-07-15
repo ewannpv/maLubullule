@@ -53,21 +53,26 @@
 <script>
 export default {
   computed: {
+    // Object that stores informations to display.
     stats() {
       return this.$store.getters.STATS;
     },
+    // Float that stores the alcohol level in in g/L.
     alcoholLevel() {
       if (!this.stats) return 0;
       return this.stats.alcoholLevel.toFixed(4);
     },
+    // Flat that stores the amount of alcohol absorbed in grams.
     alcoholAbsorbed() {
       if (!this.stats) return 0;
       return this.stats.alcoholAbsorbed.toFixed(2);
     },
+    // Int that stores the Alcohol leved divided by thethe legal threshold.
     circleValue() {
       if (!this.stats) return 0;
       return parseInt((this.stats.alcoholLevel / 0.5) * 100, 10);
     },
+    // String that stores the amount of time to reach the the legal threshold.
     estimatedTime() {
       if (!this.stats) return '0';
       let minutes = this.stats.estimatedTime;
@@ -75,6 +80,7 @@ export default {
       minutes %= 60;
       return `${hours}h${minutes}`;
     },
+    // Color that stores the current color of the circle according to the circleValue.
     colorCircle() {
       switch (true) {
         case (this.circleValue < 50): return 'green';
