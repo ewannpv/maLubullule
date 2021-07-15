@@ -8,6 +8,7 @@ const alcoholsURL = 'https://spreadsheets.google.com/feeds/list/1epQ281j0OEPEc-U
 
 const fetchSettings = { method: 'Get' };
 
+// Fetchs categories from the Google sheet.
 export const FetchCategories = (context) => {
   fetch(categoriesURL, fetchSettings)
     .then((res) => res.json())
@@ -25,6 +26,7 @@ export const FetchCategories = (context) => {
     });
 };
 
+// Fetchs alcohols from the Google sheet.
 export const FetchAlcohols = (context) => {
   fetch(alcoholsURL, fetchSettings)
     .then((res) => res.json())
