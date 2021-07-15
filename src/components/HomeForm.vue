@@ -8,20 +8,21 @@
             v-model="customAbv"
             persistent-hint
             hint="Degré d'alcool du brevage"
-            @change="updateCustomBrevage">
-            </v-text-field>
+            @change="updateCustomBrevage"
+          >
+          </v-text-field>
           <v-select
             v-else
-            v-model="selectedAlcohol"
+            v-model="alcoholModel"
             :hint="
               `
-          ${selectedAlcohol ? selectedAlcohol.name : ''},
-          ${selectedAlcohol ? selectedAlcohol.abv : ''}%`
+          ${alcoholModel ? alcoholModel.name : ''},
+          ${alcoholModel ? alcoholModel.abv : ''}%`
             "
             :items="displayedAlcohols"
             item-text="name"
             label="Brevage"
-            @change="updateCurrentAlcohol(selectedAlcohol.id)"
+            @change="updateCurrentAlcohol(alcoholModel.id)"
             persistent-hint
             return-object
             single-line
@@ -29,14 +30,14 @@
         </v-col>
         <v-col cols="12" md="3">
           <v-select
-            v-model="category"
+            v-model="categoryModel"
             :items="categories"
             item-text="displayedName"
             label="Catégorie"
             persistent-hint
             hint="Catégorie du brevage"
             return-object
-            @change="updateDisplayedAlcohols(category)"
+            @change="updateDisplayedAlcohols(categoryModel)"
             single-line
           ></v-select>
         </v-col>
@@ -100,14 +101,22 @@
 export default {
   data() {
     return {
+      // Int that stores the number of doses.
       doses: 1,
-      selectedAlcohol: null,
+      // Alcohol used as a model to get the selected alcohol.
+      alcoholModel: null,
+      // Float that stores the custom abv.
       customAbv: 15,
+      // Float that stores the weight of the user.
       weight: 70,
+      // Boolean that stores the sex of the user.
       sex: true,
+      // Float that stores the volume of one dose.
       volume: 0,
+      // [Alcohol] that stores alcohols from the selected category.
       displayedAlcohols: [],
-      category: null,
+      // Categpru used as a model to get the selected category.
+      categoryModel: null,
     };
   },
   mounted() {
@@ -115,32 +124,41 @@ export default {
     this.$store.dispatch('FETCH_ALCOHOLS');
   },
   computed: {
+    // Boolean used to know when datas have been feteched.
     dataFetched() {
       return this.$store.getters.DATAFETCHED;
     },
+    // [Alcohol] used to store fetched alcohols.
     alcoholsList() {
       return this.$store.getters.ALCOHOLS;
     },
+    // Alcohol used to store the selected alcohol.
     currentAlcohol() {
       return this.$store.getters.CURRENT_ALCOHOL;
     },
+    // [Category] used to store fetched categories.
     categories() {
       return this.$store.getters.CATEGORIES;
     },
+    // Boolean used to know if the custom category is selected.
     customCategorySelected() {
-      if (!this.category) { return false; }
-      return this.category.name === 'custom';
+      if (!this.categoryModel) {
+        return false;
+      }
+      return this.categoryModel.name === 'custom';
     },
   },
   watch: {
+    // Checks if datas have been fetched then loads stats.
     dataFetched() {
-      this.selectedAlcohol = this.currentAlcohol;
-      [this.category] = this.categories;
-      this.updateDisplayedAlcohols(this.category);
+      this.alcoholModel = this.currentAlcohol;
+      [this.categoryModel] = this.categories;
+      this.updateDisplayedAlcohols(this.categoryModel);
       this.calculateResult();
     },
   },
   methods: {
+    // Updates the current selected alcohol according to the given id and updates stats.
     updateCurrentAlcohol(id) {
       this.$store.dispatch('UPDATE_CURRENT_ALCOHOL', id);
       this.$gtag.event('update_alcohol', { alcohol: this.currentAlcohol.name });
@@ -148,31 +166,39 @@ export default {
       this.volume = this.currentAlcohol.volume;
       this.calculateResult();
     },
+    // Updates the given custom brevage and updates stats.
     updateCustomBrevage() {
+      this.$gtag.event('update_alcohol', { alcohol: `custom: ${this.customAbv}` });
+
       this.$store.dispatch('UPDATE_CUSTOM_ALCOHOL', this.customAbv);
-      this.$gtag.event('update_alcohol', { alcohol: `custom: ${this.customAbv.toString}` });
       this.volume = this.currentAlcohol.volume;
       this.calculateResult();
     },
-
+    // Updates displayed alcohols accoring to the new selected category.
     updateDisplayedAlcohols(category) {
       this.$gtag.event('update_category', { category: category.name });
 
+      // Sort alcohols alphabetically.
       this.displayedAlcohols = this.alcoholsList.filter(
         (alcohol) => alcohol.categories.filter((item) => item === category.name).length,
       );
-      if (this.displayedAlcohols.length > 0 && category.name !== 'custom') {
-        [this.selectedAlcohol] = this.displayedAlcohols;
-        this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name));
-        this.updateCurrentAlcohol(this.selectedAlcohol.id);
-      } else { this.updateCustomBrevage(); }
 
-      this.calculateResult();
+      // If the custom category is choosed we don't need to update displayed alcohols,
+      // we need to update the custom brevage instead.
+      if (this.displayedAlcohols.length > 0 && category.name !== 'custom') {
+        [this.alcoholModel] = this.displayedAlcohols;
+        this.displayedAlcohols.sort((a, b) => a.name.localeCompare(b.name));
+        this.updateCurrentAlcohol(this.alcoholModel.id);
+      } else {
+        this.updateCustomBrevage();
+      }
     },
+    // Increases the number of doses.
     increaseDoses() {
       this.doses += 1;
       this.calculateResult();
     },
+    // Decrease the number of doses.
     decreaseDoses() {
       if (this.doses < 2) {
         this.doses = 1;
@@ -181,10 +207,12 @@ export default {
       }
       this.calculateResult();
     },
+    // Checks if all fields are correct.
     checkFields() {
       // TODO.
       return true;
     },
+    // Updates the current stats according to the given inputs.
     calculateResult() {
       if (this.checkFields()) {
         this.$store.dispatch('UPDATE_STATS', {
