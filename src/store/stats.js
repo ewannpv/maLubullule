@@ -23,9 +23,11 @@ export default class Stats {
     this.alcoholAbsorbed = alcoholAbsorbed(alcohol.abv, volume);
     // Float that stores the diffusion coefficient according to the sex.
     this.diffusionCoef = sex ? 0.7 : 0.6;
-    // Float that store the alcohol level.
+    // Float that stores the alcohol level.
     this.alcoholLevel = this.alcoholAbsorbed / (weight * this.diffusionCoef);
     // Int that stores the amount of time to reach the the legal threshold.
     this.estimatedTime = estimatedTime(this.alcoholLevel, sex);
+    // INT that stores the alcohol level in %.
+    this.alcoholPercent = parseInt((this.alcoholLevel / 0.5) * 100, 10);
   }
 }

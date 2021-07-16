@@ -1,47 +1,49 @@
 <template>
-<v-container grid-list-md>
-
-  <v-row>
-    <v-col cols="12" sm="6" class="text-start" align="center" justify="center">
-      <v-list-item class="pl-0 text-h6" two-line>
-        <v-list-item-content>
-          <v-list-item-title class="wrapped-item"
-            >Taux d’alcoolémie :
-            <b> {{ alcoholLevel }}g/L </b>
-            <v-list-item-subtitle class="wrapped-item">Seuil légal : 0.5g/L</v-list-item-subtitle>
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item class="pl-0 text-h6">
-        <v-list-item-content>
-          <v-list-item-title class="wrapped-item"
-            >Gramme d’alcools ingérés :
-            <b> {{ alcoholAbsorbed }}g </b>
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-      <v-list-item class="pl-0 text-h6">
-        <v-list-item-content>
-          <v-list-item-title class="wrapped-item"
-            >Temps estimé pour atteindre le seuil légal :
-            <b> {{ estimatedTime }}min </b>
-          </v-list-item-title>
-        </v-list-item-content>
-      </v-list-item>
-    </v-col>
-    <v-col cols="12" sm="6">
-      <v-col cols="12"><h2>Taux d'alcoolémie / Limite Légale</h2></v-col>
-      <v-progress-circular
-        :rotate="360"
-        :size="200"
-        :width="15"
-        :value="circleValue"
-        v-bind:color='colorCircle'
-        ><h1>{{ circleValue }}%</h1>
-      </v-progress-circular>
-    </v-col>
-  </v-row>
-</v-container>
+  <v-container grid-list-md>
+    <v-row>
+      <v-col cols="12" sm="6" class="text-start" align="center" justify="center">
+        <v-list-item class="pl-0 text-h6" two-line>
+          <v-list-item-content>
+            <v-list-item-title class="wrapped-item"
+              >Taux d’alcoolémie :
+              <b> {{ alcoholLevel }}g/L </b>
+              <v-list-item-subtitle class="wrapped-item">Seuil légal : 0.5g/L</v-list-item-subtitle>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item class="pl-0 text-h6">
+          <v-list-item-content>
+            <v-list-item-title class="wrapped-item"
+              >Gramme d’alcools ingérés :
+              <b> {{ alcoholAbsorbed }}g </b>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-item class="pl-0 text-h6">
+          <v-list-item-content>
+            <v-list-item-title class="wrapped-item"
+              >Temps estimé pour atteindre le seuil légal :
+              <b> {{ estimatedTime }}min </b>
+            </v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+      </v-col>
+      <v-col cols="12" sm="6">
+        <v-col cols="12">
+          <h2>
+            Taux d'alcoolémie / Limite Légale
+          </h2></v-col>
+        <v-progress-circular
+          :rotate="360"
+          :size="200"
+          :width="15"
+          :value="circleValue"
+          v-bind:color="colorCircle"
+          ><h1>{{ circleValue }}%</h1>
+        </v-progress-circular>
+      </v-col>
+    </v-row>
+  </v-container>
 </template>
 
 <style scoped>
@@ -51,6 +53,8 @@
 </style>
 
 <script>
+const helper = require('./helper');
+
 export default {
   computed: {
     // Stats that stores informations to display.
@@ -67,10 +71,14 @@ export default {
       if (!this.stats) return 0;
       return this.stats.alcoholAbsorbed.toFixed(2);
     },
+    colorCircle() {
+      const value = this.stats ? this.stats.alcoholPercent : 0;
+      return helper.customColor(value).class;
+    },
     // Int that stores the Alcohol leved divided by thethe legal threshold.
     circleValue() {
       if (!this.stats) return 0;
-      return parseInt((this.stats.alcoholLevel / 0.5) * 100, 10);
+      return this.stats.alcoholPercent;
     },
     // String that stores the amount of time to reach the the legal threshold.
     estimatedTime() {
@@ -79,28 +87,6 @@ export default {
       const hours = parseInt(minutes / 60, 10);
       minutes %= 60;
       return `${hours}h${minutes}`;
-    },
-    // Color that stores the current color of the circle according to the circleValue.
-    colorCircle() {
-      switch (true) {
-        case (this.circleValue < 50): return 'green';
-        case (this.circleValue < 75): return 'green darken-2';
-        case (this.circleValue < 90): return 'orange darken-1';
-        case (this.circleValue < 100): return 'deep-orange';
-        case (this.circleValue < 150): return 'red darken-2';
-        case (this.circleValue < 200): return 'pink accent-3';
-        case (this.circleValue < 300): return 'pink darken-1';
-        case (this.circleValue < 400): return 'purple darken-1';
-        case (this.circleValue < 500): return 'deep-purple darken-1';
-        case (this.circleValue < 600): return 'indigo darken-1';
-        case (this.circleValue < 700): return 'blue darken-1';
-        case (this.circleValue < 800): return 'yellow darken-1';
-        case (this.circleValue < 900): return 'green darken-1';
-        case (this.circleValue < 1000): return 'cyan accent-2';
-
-        default:
-          return 'blue darken-1';
-      }
     },
   },
 };

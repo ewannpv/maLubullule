@@ -3,7 +3,7 @@
     <v-row class="text-center">
       <v-col cols="12" class="mt-0">
         <v-img :src="require('../assets/86_background.png')" contain height="200" />
-        <v-card class="mx-auto" color="secondary">
+        <v-card class="mx-auto"  color="secondary" v-bind:style="borderStyle">
           <v-list-item three-line>
             <v-list-item-content>
               <div class="text-overline mb-2">
@@ -30,10 +30,26 @@
 import HomeForm from './HomeForm.vue';
 import HomeStats from './HomeStats.vue';
 
+const helper = require('./helper');
+
 export default {
   components: {
     HomeForm,
     HomeStats,
+  },
+  computed: {
+    // Stats that stores informations to display.
+    stats() {
+      return this.$store.getters.STATS;
+    },
+
+    borderStyle() {
+      const value = this.stats ? this.stats.alcoholPercent : 0;
+      return {
+        'border-color': `${helper.customColor(value).color}!important`,
+        border: `2px solid ${helper.customColor(value).color}!important`,
+      };
+    },
   },
 };
 </script>
