@@ -22,14 +22,23 @@ export default new Vuex.Store({
     // Booleans used to know when datas have been feteched.
     alcoholsFetched: false,
     categoriesFetched: false,
+
+    // Setttings
+    settings: {
+      // BOolean used to know if a custom bored should be displayed.
+      customBorder: false,
+    },
   },
+  // Getters to retreive state.
   getters: {
     CURRENT_ALCOHOL: (state) => state.currentAlcohol,
     ALCOHOLS: (state) => state.alcohols,
     CATEGORIES: (state) => state.categories,
     STATS: (state) => state.stats,
     DATAFETCHED: (state) => state.alcoholsFetched && state.categoriesFetched,
+    SETTINGS: (state) => state.settings,
   },
+  // Mutations of state called by actions.
   mutations: {
     SET_CATEGORIES: (state, fetchedCategories) => {
       state.categories = fetchedCategories;
@@ -63,6 +72,7 @@ export default new Vuex.Store({
       if (stats) state.stats = stats;
     },
   },
+  // Actions called by components.
   actions: {
     FETCH_CATEGORIES: (context) => {
       FetchCategories(context);

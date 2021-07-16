@@ -3,7 +3,7 @@
     <v-row class="text-center">
       <v-col cols="12" class="mt-0">
         <v-img :src="require('../assets/86_background.png')" contain height="200" />
-        <v-card class="mx-auto"  color="secondary" v-bind:style="borderStyle">
+        <v-card color="secondary" elevation="10" v-bind:style="borderStyle">
           <v-list-item three-line>
             <v-list-item-content>
               <div class="text-overline mb-2">
@@ -13,7 +13,7 @@
                 <v-list-item-title class="text-h3">
                   MaLubullule
                 </v-list-item-title>
-                <v-list-item-subtitle>100% original.</v-list-item-subtitle>
+                <v-list-item-subtitle class="text-center">100% original.</v-list-item-subtitle>
               </div>
               <HomeForm />
               <HomeStats />
@@ -42,8 +42,9 @@ export default {
     stats() {
       return this.$store.getters.STATS;
     },
-
     borderStyle() {
+      // If customBorder is disabled, return empty property.
+      if (!this.$store.getters.SETTINGS.customBorder) return {};
       const value = this.stats ? this.stats.alcoholPercent : 0;
       return {
         'border-color': `${helper.customColor(value).color}!important`,

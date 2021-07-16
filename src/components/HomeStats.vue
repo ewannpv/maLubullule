@@ -1,7 +1,13 @@
 <template>
   <v-container grid-list-md>
+    <v-divider></v-divider>
     <v-row>
-      <v-col cols="12" sm="6" class="text-start" align="center" justify="center">
+      <v-col cols="12" lg="6" class="text-start" align="center" justify="center">
+        <v-list-item class="pl-0 text-h3">
+          <v-list-item-content>
+            <v-list-item-subtitle>Informations</v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
         <v-list-item class="pl-0 text-h6" two-line>
           <v-list-item-content>
             <v-list-item-title class="wrapped-item"
@@ -28,19 +34,23 @@
           </v-list-item-content>
         </v-list-item>
       </v-col>
-      <v-col cols="12" sm="6">
+      <v-divider vertical class="d-none d-lg-block d-print-block mt-6"></v-divider>
+      <v-col cols="12" lg="6">
         <v-col cols="12">
-          <h2>
+          <v-progress-circular
+            :rotate="360"
+            :size="200"
+            :width="15"
+            :value="circleValue"
+            v-bind:color="colorCircle"
+            ><h1>{{ circleValue }}%</h1>
+          </v-progress-circular>
+        </v-col>
+        <v-col cols="12">
+          <p class="text-subtitle-2 text-center">
             Taux d'alcoolémie / Limite Légale
-          </h2></v-col>
-        <v-progress-circular
-          :rotate="360"
-          :size="200"
-          :width="15"
-          :value="circleValue"
-          v-bind:color="colorCircle"
-          ><h1>{{ circleValue }}%</h1>
-        </v-progress-circular>
+          </p>
+        </v-col>
       </v-col>
     </v-row>
   </v-container>
