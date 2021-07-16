@@ -213,7 +213,7 @@ export default {
     // Checks if all fields are correct.
     checkFields() {
       if (this.customCategorySelected && !Number.isNaN(this.customAbv)) return false;
-      return !Number.isNaN(this.volume) || !Number.isNaN(this.height);
+      return !Number.isNaN(this.volume) || !Number.isNaN(this.height) || !Number.isNaN(this.doses);
     },
     // Updates the current stats according to the given inputs.
     calculateResult() {
@@ -224,9 +224,10 @@ export default {
           sex: this.sex,
         });
       } else {
-        this.volume = 0;
+        this.volume = 5;
         this.customAbv = 0;
-        this.height = 0;
+        this.weight = 70;
+        this.doses = 1;
         this.calculateResult();
       }
     },
