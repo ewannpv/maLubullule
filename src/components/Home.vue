@@ -35,5 +35,21 @@ export default {
     HomeForm,
     HomeStats,
   },
+  head: {
+    title() {
+      'Calculer son taux d\'alcool';
+    },
+    meta() {
+      return [
+        { name: 'application-name', content: 'MaLubullule' },
+        {
+          name: 'description',
+          content: 'Connaitre son taux n\'aura jamais été aussi simple. Peter sa biere c\'est bien, finir sa lubullule c\'est mieux. ',
+        },
+
+      ];
+    },
+
+  },
 };
 </script>
