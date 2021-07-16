@@ -2,10 +2,24 @@
   <v-form>
     <v-container grid-list-md>
       <v-row align-center>
-        <v-col cols="12" md="3">
+        <v-col cols="12" lg="3">
+          <v-select
+            v-model="categoryModel"
+            :items="categories"
+            item-text="displayedName"
+            label="Catégorie"
+            persistent-hint
+            hint="Catégorie du brevage"
+            return-object
+            @change="updateDisplayedAlcohols(categoryModel)"
+            single-line
+          ></v-select>
+        </v-col>
+        <v-col cols="12" lg="3">
           <v-text-field
             v-if="customCategorySelected"
-            v-model="customAbv"
+            type="number"
+            v-model.number="customAbv"
             persistent-hint
             hint="Degré d'alcool du brevage"
             @change="updateCustomBrevage"
@@ -28,22 +42,10 @@
             single-line
           ></v-select>
         </v-col>
-        <v-col cols="12" md="3">
-          <v-select
-            v-model="categoryModel"
-            :items="categories"
-            item-text="displayedName"
-            label="Catégorie"
-            persistent-hint
-            hint="Catégorie du brevage"
-            return-object
-            @change="updateDisplayedAlcohols(categoryModel)"
-            single-line
-          ></v-select>
-        </v-col>
         <v-col cols="12" lg="3" md="6">
           <v-text-field
-            v-model="volume"
+          type="number"
+            v-model.number="volume"
             persistent-hint
             hint="Volume d'une dose (cL)"
             @change="calculateResult"
@@ -75,7 +77,8 @@
         </v-col>
         <v-col cols="12" lg="3" md="6">
           <v-text-field
-            v-model="weight"
+          type="number"
+            v-model.number="weight"
             hint="Ton poids en Kg."
             label="Poids (kg)"
             @change="calculateResult"
@@ -209,8 +212,8 @@ export default {
     },
     // Checks if all fields are correct.
     checkFields() {
-      // TODO.
-      return true;
+      if (this.customCategorySelected && !Number.isNaN(this.customAbv)) return false;
+      return !Number.isNaN(this.volume) || !Number.isNaN(this.height);
     },
     // Updates the current stats according to the given inputs.
     calculateResult() {
@@ -221,7 +224,10 @@ export default {
           sex: this.sex,
         });
       } else {
-        // TODO.
+        this.volume = 0;
+        this.customAbv = 0;
+        this.height = 0;
+        this.calculateResult();
       }
     },
   },
