@@ -2,7 +2,7 @@
 <v-container grid-list-md>
 
   <v-row>
-    <v-col cols="12" sm="6" class="text-start">
+    <v-col cols="12" sm="6" class="text-start" align="center" justify="center">
       <v-list-item class="pl-0 text-h6" two-line>
         <v-list-item-content>
           <v-list-item-title class="wrapped-item"
