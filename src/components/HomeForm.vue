@@ -1,7 +1,6 @@
 <template>
   <v-form>
     <v-container grid-list-md>
-      <v-row></v-row>
       <v-row align-center>
         <v-col cols="12" lg="3">
           <v-select
@@ -45,7 +44,7 @@
         </v-col>
         <v-col cols="12" lg="3" md="6">
           <v-text-field
-            type="number"
+          type="number"
             v-model.number="volume"
             persistent-hint
             hint="Volume d'une dose (cL)"
@@ -78,7 +77,7 @@
         </v-col>
         <v-col cols="12" lg="3" md="6">
           <v-text-field
-            type="number"
+          type="number"
             v-model.number="weight"
             hint="Ton poids en Kg."
             label="Poids (kg)"
@@ -211,26 +210,13 @@ export default {
       }
       this.calculateResult();
     },
-    // Checks if all fields are correct.
-    checkFields() {
-      if (this.customCategorySelected && !Number.isNaN(this.customAbv)) return false;
-      return !Number.isNaN(this.volume) || !Number.isNaN(this.height) || !Number.isNaN(this.doses);
-    },
     // Updates the current stats according to the given inputs.
     calculateResult() {
-      if (this.checkFields()) {
-        this.$store.dispatch('UPDATE_STATS', {
-          volume: this.volume * this.doses,
-          weight: this.weight,
-          sex: this.sex,
-        });
-      } else {
-        this.volume = 5;
-        this.customAbv = 0;
-        this.weight = 70;
-        this.doses = 1;
-        this.calculateResult();
-      }
+      this.$store.dispatch('UPDATE_STATS', {
+        volume: this.volume * this.doses,
+        weight: this.weight,
+        sex: this.sex,
+      });
     },
   },
 };
