@@ -45,7 +45,7 @@
         </v-col>
         <v-col cols="12" lg="3" md="6">
           <v-text-field
-          type="number"
+            type="number"
             v-model.number="volume"
             persistent-hint
             hint="Volume d'une dose (cL)"
@@ -78,7 +78,7 @@
         </v-col>
         <v-col cols="12" lg="3" md="6">
           <v-text-field
-          type="number"
+            type="number"
             v-model.number="weight"
             hint="Ton poids en Kg."
             label="Poids (kg)"

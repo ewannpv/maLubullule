@@ -23,12 +23,14 @@
         </v-card>
       </v-col>
     </v-row>
+    <Footer></Footer>
   </v-container>
 </template>
 
 <script>
 import HomeForm from './HomeForm.vue';
 import HomeStats from './HomeStats.vue';
+import Footer from './Footer.vue';
 
 const helper = require('./helper');
 
@@ -36,6 +38,7 @@ export default {
   components: {
     HomeForm,
     HomeStats,
+    Footer,
   },
   computed: {
     // Stats that stores informations to display.
