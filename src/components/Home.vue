@@ -2,8 +2,8 @@
   <v-container class="main">
     <v-row class="text-center">
       <v-col cols="12" class="mt-0">
-        <v-img :src="require('../assets/86_background.png')" contain height="200" />
-        <v-card color="secondary" elevation="10" v-bind:style="borderStyle">
+        <v-img :src="require('../assets/logo_malubullule.png')" contain height="200" />
+        <v-card color="secondary" elevation="10" class="mt-1" v-bind:style="borderStyle">
           <v-list-item three-line>
             <v-list-item-content>
               <div class="text-overline mb-2">
