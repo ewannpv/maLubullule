@@ -33,7 +33,6 @@ export const FetchAlcohols = (context) => {
     .then((json) => {
       const alcohols = [];
       const rows = json.feed.entry;
-
       rows.forEach((row) => {
         const name = row.gsx$name.$t;
         const abv = row.gsx$abv.$t;
