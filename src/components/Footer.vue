@@ -20,7 +20,11 @@
 
       <v-card-text class="white--text">
         {{ new Date().getFullYear() }} —
-        <strong> <a href="https://ewannpv.com/"> ewannpv.com</a></strong>
+        <strong> <a href="https://ewannpv.com/">ewannpv.com</a></strong>
+—
+
+        <strong> <a href="http://studioflo.fr/">studioflo.fr</a></strong>
+
       </v-card-text>
     </v-card>
   </v-footer>
