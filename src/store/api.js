@@ -3,22 +3,23 @@ import Category from './category';
 
 const fetch = require('node-fetch');
 
-const categoriesURL = 'https://spreadsheets.google.com/feeds/list/1epQ281j0OEPEc-UD4_8zpWBcun1f_iQvRXHGcRmJvks/2/public/values?alt=json';
-const alcoholsURL = 'https://spreadsheets.google.com/feeds/list/1epQ281j0OEPEc-UD4_8zpWBcun1f_iQvRXHGcRmJvks/1/public/values?alt=json';
+const categoriesURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB--rin5NSwuZmC22WhPbkKquV2HLrJ_RwGdSvFLtZd93hP-1e8A9Dfo3h6FQAQLHKYSZwpxyz2Tmz/pub?gid=1842611777&single=true&output=csv';
+const alcoholsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB--rin5NSwuZmC22WhPbkKquV2HLrJ_RwGdSvFLtZd93hP-1e8A9Dfo3h6FQAQLHKYSZwpxyz2Tmz/pub?gid=1048684850&single=true&output=csv';
 
 const fetchSettings = { method: 'Get' };
 
 // Fetchs categories from the Google sheet.
 export const FetchCategories = (context) => {
   fetch(categoriesURL, fetchSettings)
-    .then((res) => res.json())
-    .then((json) => {
+    .then((res) => res.text()).then((csv) => {
       const categories = [];
-      const rows = json.feed.entry;
+      const rows = csv.split(/\n/).map((item) => item.trim());
+      rows.shift();
 
       rows.forEach((row) => {
-        const name = row.gsx$name.$t;
-        const displayName = row.gsx$displayedname.$t;
+        const columns = row.split(',');
+        const name = columns[0];
+        const displayName = columns[1];
         const category = new Category(name, displayName);
         categories.push(category);
       });
@@ -29,19 +30,21 @@ export const FetchCategories = (context) => {
 // Fetchs alcohols from the Google sheet.
 export const FetchAlcohols = (context) => {
   fetch(alcoholsURL, fetchSettings)
-    .then((res) => res.json())
-    .then((json) => {
+    .then((res) => res.text()).then((csv) => {
       const alcohols = [];
-      const rows = json.feed.entry;
+      const rows = csv.split(/\n/).map((item) => item.trim());
+      rows.shift();
+
       rows.forEach((row) => {
-        const name = row.gsx$name.$t;
-        const abv = row.gsx$abv.$t;
-        const volume = row.gsx$volume.$t;
+        const columns = row.split(',');
+        const name = columns[0];
+        const abv = columns[1];
+        const volume = columns[2];
         const categories = [];
-        for (let i = 1; i <= 5; i += 1) {
-          const index = 'gsx$category'.concat(i);
-          const category = row[index].$t;
-          if (category) { categories.push(category); }
+        for (let i = 3; i <= 7; i += 1) {
+          const category = columns[i];
+          if (!category) { break; }
+          categories.push(category);
         }
         const alcohol = new Alcohol(name, abv, volume, categories);
         alcohols.push(alcohol);
