@@ -27,7 +27,7 @@ export default class Stats {
     this.alcoholLevel = this.alcoholAbsorbed / (weight * this.diffusionCoef);
     // Int that stores the amount of time to reach the the legal threshold.
     this.estimatedTime = estimatedTime(this.alcoholLevel, sex);
-    // INT that stores the alcohol level in %.
+    // Int that stores the alcohol level in %.
     this.alcoholPercent = parseInt((this.alcoholLevel / 0.5) * 100, 10);
   }
 }
