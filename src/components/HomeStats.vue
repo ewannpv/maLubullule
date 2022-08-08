@@ -35,7 +35,7 @@
         </v-list-item>
       </v-col>
       <v-divider vertical class="d-none d-lg-block d-print-block mt-6"></v-divider>
-      <v-col cols="12" lg="6">
+      <v-col cols="12" lg="6" align="center" justify="center">
         <v-col cols="12">
           <v-progress-circular
             :rotate="360"
@@ -47,7 +47,7 @@
           </v-progress-circular>
         </v-col>
         <v-col cols="12">
-          <p class="text-subtitle-2 text-center">
+          <p class="text-subtitle-2 text-center m-0">
             Taux d'alcoolémie / Limite Légale
           </p>
         </v-col>
@@ -63,7 +63,7 @@
 </style>
 
 <script>
-const helper = require('./helper');
+const colorHelper = require('./ColorHelper');
 
 export default {
   computed: {
@@ -83,7 +83,7 @@ export default {
     },
     colorCircle() {
       const value = this.stats ? this.stats.alcoholPercent : 0;
-      return helper.customColor(value).class;
+      return colorHelper.customColor(value).class;
     },
     // Int that stores the Alcohol leved divided by thethe legal threshold.
     circleValue() {

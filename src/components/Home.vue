@@ -16,7 +16,6 @@
               <HomeStats />
             </v-list-item-content>
           </v-list-item>
-          <v-card-text> </v-card-text>
         </v-card>
       </v-col>
     </v-row>
@@ -29,7 +28,7 @@ import HomeForm from './HomeForm.vue';
 import HomeStats from './HomeStats.vue';
 import Footer from './Footer.vue';
 
-const helper = require('./helper');
+const colorHelper = require('./ColorHelper');
 
 export default {
   components: {
@@ -47,8 +46,8 @@ export default {
       if (!this.$store.getters.SETTINGS.customBorder) return {};
       const value = this.stats ? this.stats.alcoholPercent : 0;
       return {
-        'border-color': `${helper.customColor(value).color}!important`,
-        border: `2px solid ${helper.customColor(value).color}!important`,
+        'border-color': `${colorHelper.customColor(value).color}!important`,
+        border: `2px solid ${colorHelper.customColor(value).color}!important`,
       };
     },
   },

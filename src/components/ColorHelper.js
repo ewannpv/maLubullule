@@ -1,5 +1,5 @@
-// Returns a Color according to the given value.
 module.exports = {
+  // Returns a Color according to the given value.
   customColor: (value) => {
     switch (true) {
       case (value < 50): return { class: 'green', color: '#4CAF50' };

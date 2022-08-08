@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import Alcohol from './alcohol';
-import { FetchAlcohols, FetchCategories } from './api';
+import Alcohol from '../models/alcohol';
+import { fetchAlcohols, fetchCategories } from './api';
 import Stats from './stats';
 
 Vue.use(Vuex);
@@ -16,7 +16,7 @@ export default new Vuex.Store({
     alcohols: null,
     // [Category] used to store fetched categories.
     categories: [],
-    // Stats that stores informations to display.
+    // Stats that store informations to display.
     stats: null,
 
     // Booleans used to know when datas have been feteched.
@@ -25,7 +25,8 @@ export default new Vuex.Store({
 
     // Setttings
     settings: {
-      // BOolean used to know if a custom bored should be displayed.
+      // Boolean used to know if a custom border should be displayed.
+      // Currently disabled.
       customBorder: false,
     },
   },
@@ -75,10 +76,10 @@ export default new Vuex.Store({
   // Actions called by components.
   actions: {
     FETCH_CATEGORIES: (context) => {
-      FetchCategories(context);
+      fetchCategories(context);
     },
     FETCH_ALCOHOLS: (context) => {
-      FetchAlcohols(context);
+      fetchAlcohols(context);
     },
     SAVE_ALCOHOL: (context, { name, abv, volume }) => {
       context.commit('ADD_ALCOHOL', name, abv, volume);

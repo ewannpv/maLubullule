@@ -18,8 +18,8 @@ export default class Alcohol {
   }
 }
 
-// Generates a list of custom alcogols from 1 to 100 abv.
-const GetCustomAlcohols = () => {
+// Generates a list of custom alcohols from 1 to 100 abv.
+const getCustomAlcohols = () => {
   const alcohols = [];
   for (let index = 1; index <= 100; index += 1) {
     const name = `Brevage à ${index.toString()}°`;
@@ -29,4 +29,4 @@ const GetCustomAlcohols = () => {
 };
 
 // Currently disabled.
-export const customAlcohols = GetCustomAlcohols();
+export const customAlcohols = getCustomAlcohols();

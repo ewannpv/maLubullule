@@ -1,15 +1,16 @@
-import Alcohol from './alcohol';
-import Category from './category';
+import Alcohol from '../models/alcohol';
+import Category from '../models/category';
 
 const fetch = require('node-fetch');
 
-const categoriesURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB--rin5NSwuZmC22WhPbkKquV2HLrJ_RwGdSvFLtZd93hP-1e8A9Dfo3h6FQAQLHKYSZwpxyz2Tmz/pub?gid=1842611777&single=true&output=csv';
-const alcoholsURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB--rin5NSwuZmC22WhPbkKquV2HLrJ_RwGdSvFLtZd93hP-1e8A9Dfo3h6FQAQLHKYSZwpxyz2Tmz/pub?gid=1048684850&single=true&output=csv';
+const baseURL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRB--rin5NSwuZmC22WhPbkKquV2HLrJ_RwGdSvFLtZd93hP-1e8A9Dfo3h6FQAQLHKYSZwpxyz2Tmz/';
+const categoriesURL = `${baseURL}pub?gid=1842611777&single=true&output=csv`;
+const alcoholsURL = `${baseURL}pub?gid=1048684850&single=true&output=csv`;
 
 const fetchSettings = { method: 'Get' };
 
 // Fetchs categories from the Google sheet.
-export const FetchCategories = (context) => {
+export const fetchCategories = (context) => {
   fetch(categoriesURL, fetchSettings)
     .then((res) => res.text()).then((csv) => {
       const categories = [];
@@ -28,7 +29,7 @@ export const FetchCategories = (context) => {
 };
 
 // Fetchs alcohols from the Google sheet.
-export const FetchAlcohols = (context) => {
+export const fetchAlcohols = (context) => {
   fetch(alcoholsURL, fetchSettings)
     .then((res) => res.text()).then((csv) => {
       const alcohols = [];
