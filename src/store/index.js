@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import Alcohol from '../models/alcohol';
+import Stats from '../models/stats';
 import { fetchAlcohols, fetchCategories } from './api';
-import Stats from './stats';
 
 Vue.use(Vuex);
 
